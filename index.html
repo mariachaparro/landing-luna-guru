@@ -3997,7 +3997,25 @@ document.querySelectorAll('.escena iframe').forEach(function (f) {
       if (d < mejor) { mejor = d; i = k; }
     });
     puntos.forEach(function (p, k) { p.classList.toggle('on', k === i); });
+    actual = i;
   }, { passive: true });
+
+  // Avanza solo cada 4,5 s, pero solo mientras el carrusel está en pantalla
+  // (y es carrusel: en la computadora no se desliza). Si la persona lo toca,
+  // espera 8 s antes de seguir, para que pueda leer.
+  var actual = 0, enPantalla = false, pausaHasta = 0;
+  var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function avanza() {
+    if (quieto || !enPantalla || Date.now() < pausaHasta) return;
+    if (pista.scrollWidth <= pista.clientWidth) return;
+    var k = (actual + 1) % cartas.length;
+    pista.scrollTo({ left: cartas[k].offsetLeft - pista.offsetLeft - 20, behavior: 'smooth' });
+  }
+  ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) {
+    pista.addEventListener(ev, function () { pausaHasta = Date.now() + 8000; }, { passive: true });
+  });
+  new IntersectionObserver(function (es) { enPantalla = es[0].isIntersecting; }, { threshold: 0.6 }).observe(pista);
+  setInterval(avanza, 4500);
 })();
 </script>
 </body>
