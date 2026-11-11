@@ -1,0 +1,161 @@
+<body>
+<header class="top"><div class="wrap">
+  <img src="{{LOGO}}" alt="gurú" width="63" height="34">
+  <a class="btn chico" href="#registro">Registrate</a>
+</div></header>
+
+<main>
+<!-- Paneles como en gurusoluciones.com: cada sección es una lámina con las
+     esquinas de arriba redondeadas que se monta sobre la anterior. -->
+<section class="panel p-lav hero"><div class="wrap">
+  {{LUNA_HERO}}
+  <span class="pill"><img src="luna-logo.png" alt="Luna" width="61" height="20">la IA de gurú</span>
+  <h1>Dejá de operar tu negocio, <em class="it">hablá con&nbsp;él.</em></h1>
+  <p class="lead">Luna atiende a tus clientes, les da turno, guarda el registro de cada uno y te cuenta cómo va tu negocio cuando se lo preguntás. <b>Vos seguís trabajando.</b></p>
+  <a class="btn" href="#registro">Registrate ahora</a>
+  <p class="micro">No necesitás saber de tecnología ni tener todo listo.</p>
+</div></section>
+
+<section class="panel p-blanco pregunta"><div class="wrap">
+  <h2>¿Qué diría tu negocio <span class="hl">si pudiera hablar?</span></h2>
+  <p>Preguntale lo que necesites saber. Luna te responde al toque, sin que busques nada.</p>
+  <!-- Tres preguntas de todos los días, con la respuesta de Luna (datos de ejemplo). -->
+  <div class="charlas">
+    <div class="charla"><p class="yo">¿Cuántos turnos tengo mañana?</p><p class="ella"><b>Luna</b>Doce. El primero a las 9:00 y tenés libre de 15:00 a 16:00.</p></div>
+    <div class="charla"><p class="yo">¿Quién no vino hace dos meses?</p><p class="ella"><b>Luna</b>Ocho clientas. ¿Les preparo un mensaje para que vuelvan?</p></div>
+    <div class="charla"><p class="yo">¿Cómo va la caja esta semana?</p><p class="ella"><b>Luna</b>Entraron $480.000 y registré tres gastos. Vas mejor que la semana pasada.</p></div>
+  </div>
+  <p class="beneficio">Tené el control de tu negocio, organizá tu día y descubrí nuevas oportunidades con Luna.</p>
+</div></section>
+
+<section class="panel p-lav"><div class="wrap">
+  <div class="sec-head">
+    <h2>Te presentamos las <span class="hl">habilidades de Luna</span></h2>
+    <p><b>Hablás una vez</b> y se mueve todo tu negocio.</p>
+  </div>
+  <div class="habs">{{CARDS}}</div>
+  <p class="remate">Luna atiende a tus clientes <b>las 24 horas, los 7 días de la semana</b>, en <b>WhatsApp, Instagram, Facebook y el chat de tu web</b>.</p>
+  <div class="centro"><a class="btn" href="#registro">Registrate ahora</a></div>
+</div></section>
+
+<section class="panel p-morado"><div class="wrap">
+  <div class="sec-head">
+    <h2><span class="lima">Empezá hoy.</span><br>No tenés que tener todo listo.</h2>
+    <p>Seguí estos <b>4 pasos</b> y <b>Luna</b> aprende con vos.</p>
+  </div>
+  <ol class="pasos">{{PASOS}}</ol>
+  <div class="franja">
+    <p>No hace falta saber de inteligencia artificial ni preparar nada antes.</p>
+    <a class="btn" href="#registro">Registrate ahora</a>
+  </div>
+</div></section>
+
+<section class="panel p-blanco"><div class="wrap">
+  <div class="sec-head"><h2>Hecho para negocios <span class="hl">como el tuyo</span></h2></div>
+  <!-- Los mismos rubros que las campañas de la pauta en Meta: las tres que Julián le envió a Pablo y construcción. -->
+  <ul class="pills-rubro">
+    <li><b>Belleza y estética</b><span>Peluquerías, barberías, uñas y estética facial</span></li>
+    <li><b>Wellness y gimnasios</b><span>Gimnasios, crossfit, yoga, pilates y entrenadores personales</span></li>
+    <li><b>Salud y odontología</b><span>Odontología, kinesiología, psicología y consultorios</span></li>
+    <li><b>Construcción</b><span>Constructoras, contratistas y arquitectura</span></li>
+  </ul>
+</div>
+  <div class="rubros"><div class="pista">{{RUBROS}}</div></div>
+</section>
+
+<section class="panel p-lila"><div class="wrap">
+  <div class="sec-head"><h2>Preguntas frecuentes</h2></div>
+  <div class="faq">{{FAQ}}</div>
+</div></section>
+
+<!-- El cierre es el registro: todos los botones de la página bajan hasta aquí. -->
+<section class="panel p-oscuro cierre" id="registro"><div class="wrap">
+  {{LUNA_CIERRE}}
+  <h2>Tu negocio tiene mucho para contarte. <span class="hl-claro">Escuchalo.</span></h2>
+  <p class="cierre-lead">Registrate y te escribimos por WhatsApp para poner a Luna a trabajar en tu negocio.</p>
+  <a class="btn" href="#registro">Registrate</a>
+  <p class="pie">© gurú | Soluciones Multimedia SA</p>
+</div></section>
+</main>
+
+<!-- El formulario se abre dentro de la página: todos los botones «Registrate»
+     abren esta ventana. Campos acordados con Wen: los cinco obligatorios y la
+     casilla de WhatsApp. En HubSpot se reemplaza por el formulario nativo. -->
+<dialog class="modal" id="modal-registro" aria-labelledby="m-titulo">
+  <button class="cerrar" type="button" aria-label="Cerrar">&times;</button>
+  <h3 id="m-titulo">Registrate</h3>
+  <p class="m-sub">Dejá tus datos y te escribimos por WhatsApp.</p>
+  <form class="form" id="form-registro" novalidate>
+    <div class="campo"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="given-name" required></div>
+    <div class="campo"><label for="f-wa">WhatsApp</label><div class="wa"><select name="pais" aria-label="Código de país"><option value="+54">+54</option></select><input id="f-wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="11 2345 6789" required></div></div>
+    <div class="campo"><label for="f-mail">Correo</label><input id="f-mail" name="correo" type="email" autocomplete="email" required></div>
+    <div class="campo"><label for="f-neg">Nombre del negocio</label><input id="f-neg" name="negocio" autocomplete="organization" required></div>
+    <div class="campo ancho"><label for="f-rubro">Rubro</label><select id="f-rubro" name="rubro" required><option value="" selected disabled>Elegí tu rubro</option><option value="belleza-estetica">Belleza y estética</option><option value="wellness-gimnasios">Wellness y gimnasios</option><option value="salud-odontologia">Salud y odontología</option><option value="construccion">Construcción</option><option value="otro">Otro</option></select></div>
+    <label class="check ancho"><input type="checkbox" name="consentimiento_whatsapp" required><span>Acepto que gurú me escriba por WhatsApp sobre mi registro.</span></label>
+    <button class="btn ancho" type="submit">Registrate</button>
+    <p class="legal ancho">Al registrarte aceptás la <a href="https://www.gurusoluciones.com/legalesargentina" target="_blank" rel="noopener">política de privacidad de gurú</a>.</p>
+    <p class="aviso ancho" id="form-aviso" hidden></p>
+  </form>
+</dialog>
+
+<script>
+// Escala cada escena al ancho de su tarjeta y la corre para enseñar solo el
+// recorte (x 100, y 50 de la escena de 640 x 480).
+(function ajustaEscenas() {
+  function ajusta() {
+    document.querySelectorAll('.escena').forEach(function (caja) {
+      var k = caja.clientWidth / 440;
+      if (caja.querySelector('iframe')) caja.querySelector('iframe').style.transform = 'scale(' + k + ') translate(-100px, -50px)';
+    });
+  }
+  ajusta();
+  window.addEventListener('resize', ajusta);
+})();
+
+// Todos los botones «Registrate» abren el formulario en una ventana.
+(function abreRegistro() {
+  var modal = document.getElementById('modal-registro');
+  document.querySelectorAll('a[href="#registro"]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); modal.showModal(); });
+  });
+  modal.querySelector('.cerrar').addEventListener('click', function () { modal.close(); });
+  modal.addEventListener('click', function (e) { if (e.target === modal) modal.close(); });
+})();
+
+// El rubro llega desde el anuncio (?rubro=belleza o la campaña en utm_campaign)
+// y queda elegido en el formulario.
+(function rubroDesdeLaPauta() {
+  var q = new URLSearchParams(location.search);
+  var r = (q.get('rubro') || q.get('utm_campaign') || '').toLowerCase();
+  var v = /belleza|estetica/.test(r) ? 'belleza-estetica' : /wellness|gimnasio|gym/.test(r) ? 'wellness-gimnasios' : /salud|odonto/.test(r) ? 'salud-odontologia' : /constru|obra/.test(r) ? 'construccion' : '';
+  if (v) document.getElementById('f-rubro').value = v;
+})();
+
+// Vista previa: el formulario valida pero no envía nada.
+document.getElementById('form-registro').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var aviso = document.getElementById('form-aviso');
+  aviso.hidden = false;
+  aviso.textContent = this.checkValidity()
+    ? 'Vista previa: así quedaría el registro. Este formulario todavía no envía datos.'
+    : 'Completá todos los campos y marcá la casilla de WhatsApp.';
+});
+
+// Cada animación se muestra cuando ya dibujó algo. Mientras tanto, o si el
+// navegador no la puede cargar, queda a la vista su imagen fija.
+document.querySelectorAll('.escena iframe').forEach(function (f) {
+  var intentos = 0;
+  function lista() {
+    var doc = null;
+    try { doc = f.contentDocument; } catch (e) {}
+    if (!doc) return true;  // otro origen: no se puede mirar, se muestra
+    var txt = doc.body ? doc.body.innerText : '';
+    return txt.length > 40 && !/Unpacking|requires JavaScript|error/i.test(txt);
+  }
+  (function mira() {
+    if (lista()) { f.classList.add('viva'); return; }
+    if (++intentos < 40) setTimeout(mira, 300);
+  })();
+});
+</script>
+</body>

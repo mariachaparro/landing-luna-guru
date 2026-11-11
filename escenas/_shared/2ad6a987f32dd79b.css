@@ -1,0 +1,283 @@
+
+  html,body{margin:0;background:transparent;height:100%}
+  #dc-root,.sc-host{height:100%}
+  /* Referente 2 — el celular NO se mueve: sin cámara, sin zoom, siempre
+     completo y centrado. Todo el movimiento está en el elemento que sale. */
+  .bw-stage{width:100%;height:100%;min-height:200px;display:flex;box-sizing:border-box;overflow:hidden}
+  .bw-cam{position:relative}
+  /* --- Escena para el hueco de /crm: 440x480, escala por ancho, alineada
+     arriba y recortada por abajo. Solo el aparato móvil. --- */
+  .bw-stage{position:relative;align-items:center;justify-content:center;overflow:hidden;pointer-events:none}
+  .bw-ph{position:absolute;left:50%;top:0;transform:translateX(-50%);z-index:20;display:flex}
+
+
+  .bw-poplayer{position:absolute;inset:0;pointer-events:none;z-index:70}
+  .resumen .hdr{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  /* --- Contactos › ficha de cliente. Reconstruido de client-details.page.tsx
+     (PageHeader con volver + nombre + chip de estado + «Ficha incompleta», y
+     las pestañas de tabItems) y general-data.component.tsx: fila 1
+     ClientInfoCard | ClientTagsCard + OtherInfoCard, fila 2 PhonesCard |
+     FiscalInfoCard. Textos literales de los t() de esos componentes. --- */
+  .fc{font-family:Inter,system-ui,sans-serif;color:#0A2540;display:flex;flex-direction:column;gap:14px}
+  .fc-h{display:flex;align-items:center;gap:10px}
+  .fc-back{width:30px;height:30px;flex:none;border-radius:999px;background:#F1F4F9;display:grid;place-items:center;color:#475569}
+  .fc-back svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .fc-h h1{margin:0;font-size:24px;font-weight:700;letter-spacing:-.01em;white-space:nowrap}
+  .fc-sp{flex:1}
+  .fc-chip{flex:none;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:6px;padding:3px 10px;white-space:nowrap}
+  .fc-chip.ok{background:#D1FAE5;color:#047857}
+  .fc-chip.warn{background:#FEF3C7;color:#92400E}
+  .fc-chip.ai{background:#EEF4FE;color:#1D4ED8}
+  .fc-chip.flat{background:#F1F4F9;color:#475569}
+  .fc-chip svg{width:12px;height:12px;flex:none;fill:currentColor}
+  .fc-b{flex:none;display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 13px;font-size:13px;font-weight:600;white-space:nowrap}
+  .fc-b.flat{background:#F1F4F9;color:#334155}
+  .fc-b.dng{background:#FEF2F2;color:#B91C1C}
+  .fc-b.pri{background:#60A5FA;color:#fff}
+  .fc-b svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .fc-tabs{position:relative;display:flex;align-items:center;gap:22px;border-bottom:1px solid #E8EAEE;overflow:hidden}
+  .fc-tabs > span{font-size:14px;color:#64748B;padding:8px 0 10px;white-space:nowrap}
+  .fc-tabs > span.on{color:#2563EB;font-weight:600;box-shadow:inset 0 -2px 0 #2563EB}
+  .fc-fade{position:absolute;right:0;top:0;bottom:1px;display:flex;align-items:center;padding-left:22px;background:linear-gradient(to left,#fff 45%,rgba(255,255,255,.95) 70%,transparent)}
+  .fc-fade svg{width:16px;height:16px;color:#64748B;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .fc-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+  .fc-col{display:flex;flex-direction:column;gap:14px}
+  .fc-card{border:1px solid #E4E7EC;border-radius:10px;background:#fff;padding:16px;box-shadow:0 1px 2px rgba(10,37,64,.05);display:flex;flex-direction:column;gap:13px}
+  .fc-ch{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .fc-ct{font-size:15.5px;font-weight:600;color:#1E293B;white-space:nowrap}
+  .fc-cs{font-size:12.5px;color:#64748B;margin-top:2px}
+  .fc-id{display:flex;align-items:flex-start;gap:12px}
+  .fc-av{width:52px;height:52px;flex:none;border-radius:999px;background:#DBEAFE;color:#1D4ED8;display:grid;place-items:center;font-size:17px;font-weight:700}
+  .fc-idtx{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+  .fc-idtx .nm{font-size:17px;font-weight:600;color:#1E293B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fc-idtx .em{font-size:13px;color:#64748B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fc-qa{display:flex;gap:4px;flex:none;color:#64748B}
+  .fc-qa span{width:26px;height:26px;border-radius:999px;display:grid;place-items:center}
+  .fc-qa svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .fc-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .fc-fields.one{grid-template-columns:1fr}
+  .fc-in{display:flex;flex-direction:column;gap:3px;border:1px solid #D7DDE5;border-radius:8px;padding:6px 11px;min-width:0}
+  .fc-in .lb{font-size:10.5px;font-weight:600;letter-spacing:.03em;color:#94A3B8;text-transform:uppercase;white-space:nowrap}
+  .fc-in .vl{font-size:13.5px;color:#1E293B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fc-meta{display:flex;align-items:baseline;gap:7px;font-size:12.5px;color:#64748B;white-space:nowrap}
+  .fc-meta b{font-weight:600;color:#334155}
+  .fc-tags{display:flex;flex-wrap:wrap;gap:7px}
+  .fc-ph{display:flex;align-items:center;gap:9px;border:1px solid #E8EAEE;border-radius:8px;padding:8px 11px}
+  .fc-ph .ic{width:26px;height:26px;flex:none;border-radius:7px;background:#D1FAE5;color:#047857;display:grid;place-items:center}
+  .fc-ph .ic svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .fc-ph .n{flex:1;min-width:0;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  .bw-shade{position:absolute;inset:0;border-radius:inherit;background:rgba(10,37,64,.6);opacity:0;pointer-events:none;z-index:58;transition:opacity .35s ease}
+  .bw-stage .phone{
+    padding:11px;
+    background:linear-gradient(152deg,#f7f3ff 0%,#ddd3f2 13%,#fdfbff 26%,#c3b5e4 40%,#efe9fb 54%,#cabce8 69%,#fbf9ff 82%,#d8cdf0 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.92),
+      inset 0 0 0 2px rgba(140,118,190,.32),
+      0 1px 0 rgba(255,255,255,.9),
+      0 44px 80px -34px rgba(74,52,130,.4),
+      0 14px 34px -16px rgba(74,52,130,.26);
+  }
+  .bw-stage .device{box-shadow:0 0 0 2px #15101f, inset 0 1px 3px rgba(0,0,0,.22)}
+  .bw-stage .island{background:#0d0916}
+  .bw-rb{position:absolute;width:3px;border-radius:2px;background:linear-gradient(90deg,#b1a0d2,#efe9fb 48%,#a393c8);z-index:2}
+  .bw-stage .screen{scroll-behavior:smooth;overflow:hidden;overscroll-behavior:auto}
+  .bw-stage .screen-in > *{flex:none}
+  /* el recordatorio, el movimiento de la cita y lo que queda en la ficha */
+  .ag-rec,.ag-mov,.ag-ficha{display:flex;flex-direction:column;gap:8px;border-radius:16px;background:var(--p-surface,#fff);padding:12px 14px;
+    box-shadow:0 22px 44px -22px rgba(10,37,64,.3),0 4px 12px -6px rgba(10,37,64,.12);border:1px solid var(--p-border,rgba(10,37,64,.08))}
+  .ag-rec .hdr,.ag-mov .hdr,.ag-ficha .hdr{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+  .ag-rec .hdr{color:var(--p-wa-fg)} .ag-mov .hdr{color:var(--p-accent,#60A5FA)} .ag-ficha .hdr{color:var(--p-muted,#64748B)}
+  .ag-rec .hdr svg,.ag-mov .hdr svg,.ag-ficha .hdr svg{width:15px;height:15px;flex:none}
+  .ag-rec .b{font-size:13px;line-height:1.45;border-radius:12px;padding:8px 11px;max-width:92%}
+  .ag-rec .b.out{align-self:flex-end;background:var(--p-accent);color:#fff;border-bottom-right-radius:4px}
+  .ag-rec .b.in{align-self:flex-start;background:var(--p-surface-2,#F1F4F9);color:var(--p-fg,#0A2540);border-bottom-left-radius:4px}
+  .ag-mov .row{display:flex;align-items:center;gap:9px;font-size:14px}
+  .ag-mov .old{font-weight:600;color:var(--p-muted,#64748B);text-decoration:line-through;font-variant-numeric:tabular-nums}
+  .ag-mov .arrow{color:var(--p-muted,#64748B)}
+  .ag-mov .new{font-weight:700;color:var(--p-accent-soft-fg);background:var(--p-accent-soft);border-radius:999px;padding:2px 11px;font-variant-numeric:tabular-nums}
+  .ag-mov .who{flex:1;min-width:0;text-align:right;font-size:13px;color:var(--p-fg,#0A2540);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ag-mov .foot,.ag-ficha .foot{font-size:11.5px;color:var(--p-muted,#64748B);white-space:nowrap}
+  .ag-ficha .row{display:flex;align-items:center;gap:9px}
+  .ag-ficha .row .d{font-size:13px;color:var(--p-fg,#0A2540);white-space:nowrap}
+  @keyframes bw-apptin{from{opacity:0;transform:translateY(-10px) scale(.96)}to{opacity:1;transform:none}}
+  /* el mapa de ocupación: un color por nivel, sin cifras que leer */
+  .hm,.hm-act{display:flex;flex-direction:column;gap:9px;border-radius:16px;background:var(--p-surface,#fff);padding:12px 14px;
+    box-shadow:0 22px 44px -22px rgba(10,37,64,.3),0 4px 12px -6px rgba(10,37,64,.12);border:1px solid var(--p-border,rgba(10,37,64,.08))}
+  .hm-head,.hm-act .hdr{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+  .hm-head{color:var(--p-muted,#64748B)} .hm-act .hdr{color:var(--p-accent,#60A5FA)}
+  .hm-head svg,.hm-act .hdr svg{width:15px;height:15px;flex:none}
+  .hm-grid{display:grid;grid-template-columns:38px repeat(7,1fr);gap:4px;align-items:center}
+  .hm-d{font-size:10px;font-weight:600;color:var(--p-muted,#64748B);text-align:center;letter-spacing:.02em}
+  .hm-lbl{font-size:9.5px;font-weight:600;color:var(--p-muted,#64748B);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .hm-c{height:21px;border-radius:5px;opacity:0;animation:hm-cell .34s cubic-bezier(.2,.8,.2,1) both}
+  .hm-c.n0{background:var(--p-surface-2,#F1F4F9)}
+  .hm-c.n1{background:color-mix(in srgb, var(--p-accent) 22%, var(--p-surface-2))}
+  .hm-c.n2{background:color-mix(in srgb, var(--p-accent) 55%, var(--p-surface-2))}
+  .hm-c.n3{background:var(--p-accent)}
+  .hm-c.hot{box-shadow:inset 0 0 0 1.5px var(--p-accent)}
+  .hm-key{display:flex;align-items:center;gap:5px}
+  .hm-key .t{font-size:9.5px;color:var(--p-muted,#64748B);white-space:nowrap}
+  .hm-key i{width:17px;height:9px;border-radius:3px}
+  .hm-key .n0{background:var(--p-surface-2,#F1F4F9)}
+  .hm-key .n1{background:color-mix(in srgb, var(--p-accent) 22%, var(--p-surface-2))}
+  .hm-key .n2{background:color-mix(in srgb, var(--p-accent) 55%, var(--p-surface-2))}
+  .hm-key .n3{background:var(--p-accent)}
+  .hm-act .row{display:flex;align-items:center;gap:9px}
+  .hm-act .fr{flex:1;min-width:0;font-size:14px;font-weight:600;color:var(--p-fg,#0A2540);white-space:nowrap}
+  .hm-act .pc{flex:none;font-size:12.5px;font-weight:700;color:var(--p-accent-soft-fg);background:var(--p-accent-soft);border-radius:999px;padding:3px 11px;white-space:nowrap}
+  .hm-act .foot{font-size:11.5px;line-height:1.45;color:var(--p-muted,#64748B)}
+  @keyframes hm-cell{from{opacity:0;transform:scale(.72)}to{opacity:1;transform:none}}
+  /* los movimientos caen en la caja según pasan */
+  @keyframes fi-mov{from{opacity:0;transform:translateY(-12px) scale(.97)}to{opacity:1;transform:none}}
+  /* piezas de las escenas de finanzas */
+  .fi-box{display:flex;flex-direction:column;gap:9px;border-radius:16px;background:var(--p-surface,#fff);padding:12px 14px;
+    box-shadow:0 22px 44px -22px rgba(10,37,64,.3),0 4px 12px -6px rgba(10,37,64,.12);border:1px solid var(--p-border,rgba(10,37,64,.08))}
+  .fi-hdr{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;color:var(--p-accent,#60A5FA)}
+  .fi-hdr.mut{color:var(--p-muted,#64748B)}
+  .fi-hdr svg{width:15px;height:15px;flex:none}
+  .fi-row{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--p-fg,#0A2540)}
+  .fi-row .n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fi-row .v{flex:none;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .fi-row .v.neg{color:var(--p-danger)} .fi-row .v.pos{color:var(--p-success)}
+  .fi-sep{height:1px;background:var(--p-separator,#E2E8F0)}
+  .fi-tot{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:12px;padding:9px 11px;
+    background:var(--p-accent-soft);color:var(--p-accent-soft-fg);font-size:13px;font-weight:600}
+  .fi-tot > span:first-child{white-space:nowrap}
+  .fi-tot b{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .fi-foot{font-size:11.5px;line-height:1.45;color:var(--p-muted,#64748B)}
+  /* --- Capa de la escena: la ficha queda al fondo, atenuada, y encima entran
+     las tarjetas con lo que nombra el texto de la sección. --- */
+  .bw-stage .screen{filter:saturate(.82)}
+  .v2-veil{position:absolute;inset:0;border-radius:inherit;z-index:40;pointer-events:none;
+    background:linear-gradient(180deg,rgba(248,251,255,.26) 0%,rgba(248,251,255,.6) 40%,rgba(248,251,255,.74) 100%)}
+  /* cuelgan de .phone-wrap y escalan con el aparato, desde su mismo origen
+     (el .phone usa transform-origin 0 0), para poder sobresalir del marco */
+  .v2-cards{position:absolute;left:0;top:0;width:390px;z-index:60;pointer-events:none;
+    --dk:0;transform:scale(var(--scale,1));transform-origin:0 0;
+    display:flex;flex-direction:column;gap:9px;padding:71px 0 0;box-sizing:border-box;justify-content:flex-start}
+  .v2-card{flex:none;margin:0 -58px;display:flex;align-items:center;gap:11px;border-radius:17px;background:#fff;padding:13px 16px;
+    box-shadow:0 22px 44px -22px rgba(10,37,64,.3),0 4px 12px -6px rgba(10,37,64,.12),0 0 0 1px rgba(10,37,64,.04);
+    opacity:0;transform:translateY(14px) scale(.97);
+    transition:opacity .42s cubic-bezier(.2,.8,.2,1),transform .42s cubic-bezier(.2,.8,.2,1)}
+  .v2-card.on{animation:v2-in .42s cubic-bezier(.2,.8,.2,1) both}
+  .v2-pop{flex:none;margin:0 -58px;border-radius:var(--p-radius,16px);background:var(--p-surface,#fff);
+    box-shadow:0 22px 44px -22px rgba(10,37,64,.3),0 4px 12px -6px rgba(10,37,64,.12),0 0 0 1px rgba(10,37,64,.04);
+    opacity:0;transform:translateY(14px) scale(.97);
+    transition:opacity .42s cubic-bezier(.2,.8,.2,1),transform .42s cubic-bezier(.2,.8,.2,1)}
+  .v2-pop.on{animation:v2-in .42s cubic-bezier(.2,.8,.2,1) both}
+  .v2-card:not(.on),.v2-pop:not(.on){display:none}
+  /* la fila de filtros, flotando: es lo que la sección nombra */
+  .v2-cards .filters,.v4f .filters{opacity:1}
+  .v4f{margin:0 -58px;border-radius:16px;background:var(--p-surface,#fff);padding:10px 12px;
+    box-shadow:0 22px 44px -22px rgba(10,37,64,.3),0 4px 12px -6px rgba(10,37,64,.12);
+    animation:v2-in .42s cubic-bezier(.2,.8,.2,1) both}
+  .v4f .filters{padding:0;overflow:visible;flex-wrap:wrap;gap:7px}
+  .v4f .chip{font-size:13px;padding:7px 13px;color:var(--p-fg,#0A2540);font-weight:600;
+    background:#EEF2F8;border-color:transparent;opacity:1;transition:background .3s ease,color .3s ease,transform .3s cubic-bezier(.2,.8,.2,1)}
+  .v4f .chip[aria-pressed="true"]{background:var(--p-accent,#60A5FA);color:#fff;border-color:transparent;
+    box-shadow:0 8px 18px -8px rgba(10,37,64,.45);transform:scale(1.05)}
+  /* el juego de tarjetas verticales que deja cada filtro */
+  .v4v-row{margin:0 -58px;display:flex;flex-direction:column;gap:9px}
+  .v4v-row:not(.on) .v4v{opacity:0;transform:translateY(10px) scale(.97)}
+  .v4v{border-radius:16px;opacity:0;transform:translateY(10px) scale(.97);
+    box-shadow:0 22px 44px -22px rgba(10,37,64,.3),0 4px 12px -6px rgba(10,37,64,.12);
+    transition:opacity .38s cubic-bezier(.2,.8,.2,1),transform .38s cubic-bezier(.2,.8,.2,1)}
+  .v4v-row.on .v4v{opacity:1;transform:none}
+  .v4v{background:var(--p-surface,#fff);overflow:hidden}
+  .v4v .ccard{width:100%;background:transparent}
+
+  @keyframes v2-in{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+
+  /* el original cede su sitio mientras su clon está levantado */
+  .bw-stage .screen .filters{transition:opacity .42s cubic-bezier(.2,.8,.2,1)}
+  /* el chip del filtro activo manda: sale del apagado y se marca */
+
+  /* la lista cede su sitio mientras sus tarjetas están arriba */
+  .bw-stage .screen .swipe{transition:opacity .38s cubic-bezier(.2,.8,.2,1)}
+  .bw-stage[data-vis="on"] .screen .swipe{opacity:0 !important}
+
+
+
+
+
+  /* los componentes van sin su propio marco: el marco es el de la pieza flotante */
+  .v2-pop .phone-row,.v2-pop .resumen,.v2-pop .acc{margin:0;box-shadow:none;border-radius:inherit}
+  .v2-pop .acc{background:transparent}
+  .v2-pop,.v2-pop *{opacity:1}
+  .v2-pop .resumen p{color:var(--p-fg,#0A2540)}
+  /* los secundarios del componente, a color pleno dentro de la pieza resaltada */
+  .v2-pop,.v2-pop .num,.v2-pop .svc,.v2-pop .amt,.v2-pop .acc-h,
+  .v2-pop .resumen p,.v2-pop .resumen .hdr span{color:var(--p-fg,#0A2540)}
+  .v2-pop .num,.v2-pop .acc-h,.v2-pop .resumen .hdr span{font-weight:600}
+  .v2-pop .svc,.v2-pop .amt{font-weight:500}
+  /* solo lo verdaderamente terciario (fechas, contadores) queda en gris */
+  .v2-pop .muted,.v2-pop .hist-row .d,.v2-pop .xs{color:#5A6B80}
+  .v2-pop .resumen .hdr span{color:var(--p-fg,#0A2540)}
+  .v2-card .d{color:#5A6B80}
+  .v2-pop .hist-row .d,.v2-pop .hist-row .amt{white-space:nowrap}
+  .v2-card .ch{flex:none;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:600;white-space:nowrap}
+  .v2-card .ch.ai{background:var(--surface-cream,#FEF3C7);color:var(--fg-linda,#92400E);
+    font-family:Merriweather,Georgia,serif;font-style:italic;font-weight:700}
+  .v2-card .ch.ok{background:var(--p-success-soft,#D9F7EA);color:var(--p-success,#047857)}
+  .v2-card .ch.ac{background:var(--p-accent-soft,#DCE8FB);color:var(--p-accent-soft-fg,#1D4ED8)}
+  .v2-card .tx{flex:1;min-width:0;display:flex;align-items:baseline;gap:7px;white-space:nowrap}
+  .bw-stage .v2-cards > .v2-card{min-height:70px;align-items:flex-start}
+  .bw-stage .v2-cards > .v2-card .ch{margin-top:2px}
+  .bw-stage .v2-cards > .v2-card .tx{flex-direction:column;align-items:flex-start;white-space:normal;gap:4px}
+  .bw-stage .v2-cards > .v2-card .tx > *{flex:none;align-self:stretch;width:100%;overflow:visible;text-overflow:clip}
+  .v2-card .t,.v2-card .d,.v2-card .big{flex:none}
+  .v2-card .t{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--p-fg,#0A2540)}
+  .v2-card .d{font-size:13.5px;color:var(--p-muted,#64748B)}
+  .v2-card .big{font-size:17px;font-weight:700;letter-spacing:-.02em;color:var(--p-fg,#0A2540)}
+
+  @keyframes tag-in{from{opacity:0;transform:translateY(-8px) scale(.9)}to{opacity:1;transform:none}}
+
+  /* el bloque que el copy está nombrando en ese punto del scroll */
+  .next-cita,.actions,.resumen,.acc,.phone-row,.filters{
+    transition:box-shadow .45s cubic-bezier(.2,.8,.2,1),opacity .45s ease}
+  .bw-stage[data-hl] .screen .next-cita,.bw-stage[data-hl] .screen .actions,.bw-stage[data-hl] .screen .resumen,
+  .bw-stage[data-hl] .screen .acc,.bw-stage[data-hl] .screen .phone-row,
+  .bw-stage[data-hl] .screen .filters{opacity:.38}
+  .bw-stage[data-hl="cita"] .screen .next-cita,
+  .bw-stage[data-hl="resumen"] .screen .resumen,
+  .bw-stage[data-hl="tags"] .screen .acc:first-of-type,
+  .bw-stage[data-hl="hist"] .screen .acc:nth-of-type(2),
+  .bw-stage[data-hl="fotos"] .screen .acc:last-of-type,
+  .bw-stage[data-hl="datos"] .screen .phone-row,
+  .bw-stage[data-hl="filtros"] .screen .filters{opacity:1;
+    box-shadow:0 0 0 2px var(--p-accent),0 0 0 8px color-mix(in oklch, var(--p-accent) 16%, transparent)}
+  @keyframes bw-tap{0%{opacity:0;transform:scale(.3)}10%{opacity:1}100%{opacity:0;transform:scale(2.1)}}
+  @keyframes bw-press{0%{opacity:0;transform:scale(.45)}10%{opacity:1;transform:scale(1)}62%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.15)}}
+  @keyframes bw-screenin{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+  @keyframes bw-screenback{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+  @keyframes bw-rowin{from{opacity:0;transform:translateY(-14px) scale(.97)}to{opacity:1;transform:none}}
+  .ccard,.tab,.back,.acc{transition:transform .16s cubic-bezier(.2,.8,.2,1)}
+  /* las etiquetas respiran al desplegarse: caben en dos columnas y entran
+     escalonadas, para que el zoom aterrice sobre un bloque ya asentado */
+  .acc-b .tags{gap:9px}
+  .acc-b .tag{font-size:13px;padding:6px 12px;animation:bw-tagin .4s cubic-bezier(.34,1.5,.64,1) both}
+  .acc-b .tag:nth-child(1){animation-delay:.02s}
+  .acc-b .tag:nth-child(2){animation-delay:.07s}
+  .acc-b .tag:nth-child(3){animation-delay:.12s}
+  .acc-b .tag:nth-child(4){animation-delay:.17s}
+  .acc-b .tag:nth-child(5){animation-delay:.22s}
+  .acc-b .tag:nth-child(6){animation-delay:.27s}
+  .acc-b .tag:nth-child(7){animation-delay:.32s}
+  @keyframes bw-tagin{from{opacity:0;transform:translateY(-8px) scale(.86)}to{opacity:1;transform:none}}
+  /* el bloque que sale de la pantalla necesita su propia superficie: suelto
+     sobre el escenario se transparentaba y las fechas se perdían contra la
+     ficha de debajo */
+  /* el margen se hace con un box-shadow expandido, NO con padding: el clon
+     tiene alto fijo y cualquier padding empuja la última fila fuera de la caja */
+  .bw-poplayer .acc{background:var(--p-surface);box-shadow:0 0 0 1px rgba(10,37,64,.06)}
+  .bw-poplayer .acc .acc-h{color:var(--p-fg)}
+  /* el historial no debe partir sus filas al ampliarse */
+  .acc-b .hist-row .d,.acc-b .hist-row .amt{white-space:nowrap}
+  .acc-b .hist-row{animation:bw-tagin .4s cubic-bezier(.34,1.5,.64,1) both}
+  .acc-b .hist-row:nth-child(2){animation-delay:.06s}
+  .acc-b .hist-row:nth-child(3){animation-delay:.12s}
+  .acc-b .hist-row:nth-child(4){animation-delay:.18s}
+  a{color:var(--p-accent);text-decoration:none}
+  a:hover{color:var(--p-accent-soft-fg)}

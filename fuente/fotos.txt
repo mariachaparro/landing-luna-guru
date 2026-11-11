@@ -1,0 +1,12 @@
+Peluquería|fotos/01.webp
+Crossfit|fotos/17.webp
+Odontología|fotos/10.webp
+Barbería|fotos/05.webp
+Construcción|fotos/20.webp
+Yoga|fotos/06.webp
+Kinesiología|fotos/02.webp
+Uñas y manicura|fotos/09.webp
+Pilates|fotos/18.webp
+Psicología|fotos/14.webp
+Estética facial|fotos/13.webp
+Entrenador personal|fotos/19.webp

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <title>Bundled Page</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #F8FBFF; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+    #__bundler_loading { position: fixed; bottom: 20px; right: 20px; font: 13px/1.4 -apple-system, BlinkMacSystemFont, sans-serif; color: #666; background: #fff; padding: 8px 14px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.12); z-index: 10000; }
+    #__bundler_thumbnail { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #F8FBFF; z-index: 9999; }
+    #__bundler_thumbnail svg { width: 100%; height: 100%; object-fit: contain; }
+    #__bundler_placeholder { color: #999; font-size: 14px; }
+  </style>
+  <noscript>
+    <style>#__bundler_loading { display: none; }</style>
+    <div style="position:fixed;bottom:12px;left:12px;font:13px/1.4 -apple-system,BlinkMacSystemFont,sans-serif;color:#999;background:rgba(255,255,255,0.9);padding:6px 12px;border-radius:6px;box-shadow:0 1px 4px rgba(0,0,0,0.08);z-index:10000;">
+      This page requires JavaScript to display.
+    </div>
+  </noscript>
+</head>
+<body>
+  <div id="__bundler_thumbnail">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F8FBFF"></rect>
+    <rect x="455" y="70" width="290" height="660" rx="46" fill="#DDD3F2" stroke="#C3B5E4" stroke-width="4"></rect>
+    <rect x="473" y="88" width="254" height="624" rx="34" fill="#FFFFFF"></rect>
+    <rect x="555" y="100" width="90" height="18" rx="9" fill="#0D0916"></rect>
+    <rect x="497" y="156" width="170" height="20" rx="10" fill="#0A2540"></rect>
+    <rect x="497" y="192" width="206" height="36" rx="14" fill="#F1F4F9"></rect>
+    <rect x="392" y="248" width="416" height="52" rx="17" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="3"></rect>
+    <rect x="414" y="265" width="58" height="20" rx="10" fill="#FEF3C7"></rect>
+    <rect x="486" y="268" width="170" height="14" rx="7" fill="#1E293B"></rect>
+    <rect x="392" y="316" width="416" height="78" rx="17" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="3"></rect>
+    <rect x="412" y="336" width="38" height="38" rx="12" fill="#D6F3E2"></rect>
+    <rect x="464" y="340" width="150" height="13" rx="6" fill="#1E293B"></rect>
+    <rect x="464" y="364" width="290" height="10" rx="5" fill="#CBD5E1"></rect>
+    <rect x="392" y="410" width="416" height="150" rx="17" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="3"></rect>
+    <rect x="412" y="430" width="22" height="22" rx="7" fill="#F8D7EA"></rect>
+    <rect x="444" y="436" width="170" height="11" rx="5.5" fill="#B4418F"></rect>
+    <rect x="412" y="466" width="250" height="11" rx="5.5" fill="#1E293B"></rect>
+    <rect x="412" y="492" width="376" height="44" rx="12" fill="#F1F4F9"></rect>
+    <rect x="428" y="508" width="300" height="11" rx="5.5" fill="#94A3B8"></rect>
+    <text x="600" y="770" font-family="Inter,system-ui,sans-serif" font-size="36" font-weight="700" fill="#0A2540" text-anchor="middle">Atención en tus canales</text>
+  </svg>
+</div>
+  <div id="__bundler_loading">Unpacking...</div>
+
+  <script>
+    
+document.addEventListener('DOMContentLoaded', async function() {
+  const loading = document.getElementById('__bundler_loading');
+  function setStatus(msg) { if (loading) loading.textContent = msg; }
+
+  const FONT_MIME = /^(font[/]|application[/](x-)?font-|application[/]vnd\.ms-fontobject)/i;
+  const MIME_TOKEN = /^[\w.+-]+[/][\w.+-]+$/;
+  function toBase64(bytes) {
+    let bin = '';
+    for (let i = 0; i < bytes.length; i += 0x8000) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return btoa(bin);
+  }
+
+  // Error sink persists across replaceWith since it's on window, not the DOM.
+  window.addEventListener('error', function(e) {
+    // Failed resource loads (CSP-blocked links, scripts, images) fire plain
+    // events at the element — warn only; real JS errors carry message/error.
+    if (!e.message && !e.error && e.target && e.target !== window) {
+      console.warn('[bundle] resource failed to load:',
+        e.target.tagName, String(e.target.src || e.target.href || ''));
+      return;
+    }
+    var p = document.body || document.documentElement;
+    var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
+    d.id = '__bundler_err';
+    d.style.cssText = 'position:fixed;bottom:12px;left:12px;right:12px;font:12px/1.4 ui-monospace,monospace;background:#2a1215;color:#ff8a80;padding:10px 14px;border-radius:8px;border:1px solid #5c2b2e;z-index:99999;white-space:pre-wrap;max-height:40vh;overflow:auto';
+    d.textContent = (d.textContent ? d.textContent + String.fromCharCode(10) : '') +
+      '[bundle] ' + (e.message || e.type) +
+      (e.filename ? ' (' + e.filename.slice(0, 60) + ':' + e.lineno + ')' : '');
+  }, true);
+
+  try {
+    const manifestEl = document.querySelector('script[type="__bundler/manifest"]');
+    const templateEl = document.querySelector('script[type="__bundler/template"]');
+    if (!manifestEl || !templateEl) {
+      setStatus('Error: missing bundle data');
+      console.error('[bundler] Missing script tags — manifestEl:', !!manifestEl, 'templateEl:', !!templateEl);
+      return;
+    }
+
+    const manifest = JSON.parse(manifestEl.textContent);
+    let template = JSON.parse(templateEl.textContent);
+
+    // Nested page bundles (iframe targets). Each ships ONCE, in the ROOT
+    // document's manifest; frame srcs carry an about:blank#<uuid> marker
+    // instead of a substitutable uuid. Every document mints the blobs for
+    // its OWN frames — from local text at the root, or text obtained from
+    // its DIRECT parent over the relay protocol below — so each frame
+    // navigation stays same-origin with its initiator and a deduped page
+    // loads at any depth on any host, including a file:// download's
+    // opaque origins (where a blob minted by one document cannot be
+    // navigated to by another).
+    const pageOrderEl = document.querySelector('script[type="__bundler/page_order"]');
+    const pageOrder = pageOrderEl ? JSON.parse(pageOrderEl.textContent) : [];
+    const pageSet = new Set(pageOrder);
+    const pageTexts = {};
+
+    // ── Nested-page text protocol (parent-chain relay) ──
+    // Page bundles ship once, in the ROOT document's manifest. Every
+    // document mints the blobs for its OWN frames, obtaining page text
+    // through a strict parent-chain relay: a document only ever SENDS to
+    // its direct parent (which, for every document the publisher's own
+    // runtime minted, is another publisher document) and only ACCEPTS
+    // text from that direct parent; requests from below are honored only
+    // for the document's own child frames, and the ROOT never sends
+    // upward at all. That last rule is load-bearing: the artifact host's
+    // frame-ancestors allows claude.ai (and friends) to frame an
+    // artifact, so window.top can be a FOREIGN document — a top-addressed
+    // protocol would hand page uuids to that ancestor and accept forged
+    // "page text" from it, minting attacker HTML as an artifact-origin
+    // blob document. The chain never touches the ancestor: requests stop
+    // at the root, replies are origin-addressed per hop (never '*' when
+    // an origin exists), and both directions are origin-gated (on https
+    // a foreign sender's origin can never equal this document's; in
+    // opaque contexts — file:// — everything serializes as 'null', where
+    // an embedded EXTERNAL frame still fails the gate by carrying its
+    // own real origin, and a sandboxed child of such a frame is excluded
+    // by the own-child-frames check plus uuid unguessability). Shape is
+    // deny-by-default: one request form, one reply form, no error
+    // replies.
+    // window.origin is the SERIALIZED SECURITY origin ('null' in opaque
+    // contexts such as a sandboxed preview iframe) — location.origin is
+    // computed from the URL and stays 'https://…' even when the document
+    // is sandboxed, which would misgate every opaque chain.
+    const OWN_TARGET = /^https?:[/][/]/.test(window.origin || '')
+      ? window.origin
+      : '*';
+    function trustedOrigin(e) {
+      if (e.origin === window.origin) return true; // https chains; opaque==opaque
+      // file:// trees: Chrome serializes the file document's origin as
+      // 'file://' while the blob: documents it mints serialize as 'null',
+      // so the two legitimate shapes can never string-match — accept the
+      // pair in both directions. https origins never serialize as either,
+      // and sender identity (own child frame / direct parent) is checked
+      // separately.
+      return (
+        (e.origin === 'null' &&
+          (window.origin === 'file://' ||
+            window.location.protocol === 'file:')) ||
+        (/^file:/.test(e.origin) && window.origin === 'null')
+      );
+    }
+    // Non-empty only in the root document (nested bundles ship an empty
+    // island), so it doubles as the root marker: the root answers from
+    // local text and treats a miss as authoritative — never relaying to
+    // its (possibly foreign) parent.
+    const isPageRoot = pageOrder.length > 0;
+    const blobUrls = {};
+    const resourceBlobs = {};
+    const UUID_SHAPE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+    const pendingFrames = {}; // uuid -> [{el, frag}] awaiting text for own frames
+    const pendingRelays = {}; // uuid -> [childWindow] awaiting text to pass down
+    function mountPage(el, frag, text) {
+      const pageBlob = new Blob([text], { type: 'text/html' });
+      const u = URL.createObjectURL(pageBlob);
+      resourceBlobs[u] = pageBlob;
+      el.src = u + frag;
+    }
+    function deliverPage(uuid, text) {
+      const frames = pendingFrames[uuid];
+      delete pendingFrames[uuid];
+      if (frames) for (const f of frames) mountPage(f.el, f.frag, text);
+      const relays = pendingRelays[uuid];
+      delete pendingRelays[uuid];
+      if (relays) {
+        for (const cw of relays) {
+          try { cw.postMessage({ __bundler_page: uuid, __bundler_text: text }, OWN_TARGET); } catch (err) { /* gone */ }
+        }
+      }
+    }
+    function ownFrameWindows() {
+      const out = [];
+      for (const f of Array.from(document.querySelectorAll('iframe'))) {
+        try { if (f.contentWindow) out.push(f.contentWindow); } catch (err) { /* detached */ }
+      }
+      return out;
+    }
+    window.addEventListener('message', function (e) {
+      const d = e.data;
+      if (!d || typeof d !== 'object' || !e.source) return;
+      // Origin gate first; the structural checks below (own-child-frames
+      // for requests, direct-parent + solicited-uuid for replies, the
+      // root's never-relay rule) are what hold in fully opaque chains
+      // where origin strings can't discriminate — a sandboxed root's
+      // FOREIGN wrapper still fails all three even though both serialize
+      // as real-vs-'null' rather than matching.
+      if (!trustedOrigin(e)) return;
+      if (typeof d.__bundler_need === 'string' && UUID_SHAPE.test(d.__bundler_need)) {
+        // Requests are honored only for this document's own child frames.
+        if (ownFrameWindows().indexOf(e.source) < 0) return;
+        const uuid = d.__bundler_need;
+        const text = pageTexts[uuid];
+        if (typeof text === 'string') {
+          try { e.source.postMessage({ __bundler_page: uuid, __bundler_text: text }, OWN_TARGET); } catch (err) { /* gone */ }
+          return;
+        }
+        if (isPageRoot || window.parent === window) return; // authoritative miss
+        const waiting = pendingRelays[uuid];
+        if (waiting) {
+          if (waiting.indexOf(e.source) < 0) waiting.push(e.source);
+          return;
+        }
+        // Never-answered uuids would otherwise accumulate forever under a
+        // request spray; past the cap (far above any real page count) new
+        // relays are dropped rather than remembered.
+        if (Object.keys(pendingRelays).length >= 128) return;
+        pendingRelays[uuid] = [e.source];
+        window.parent.postMessage({ __bundler_need: uuid }, OWN_TARGET);
+      } else if (
+        typeof d.__bundler_page === 'string' &&
+        UUID_SHAPE.test(d.__bundler_page) &&
+        typeof d.__bundler_text === 'string'
+      ) {
+        // The shape test is load-bearing beyond tidiness: the solicited
+        // check below uses the in operator, which matches prototype keys
+        // ('__proto__', 'constructor') — an unshaped key would reach
+        // deliverPage and throw, painting the error banner.
+        // Text is accepted only from the direct parent — the document
+        // that minted this one.
+        if (e.source !== window.parent || window.parent === window) return;
+        if (!(d.__bundler_page in pendingFrames) && !(d.__bundler_page in pendingRelays)) return;
+        deliverPage(d.__bundler_page, d.__bundler_text);
+      }
+    });
+
+    const uuids = Object.keys(manifest);
+    setStatus('Unpacking ' + uuids.length + ' assets...');
+
+    await Promise.all(uuids.map(async (uuid) => {
+      const entry = manifest[uuid]; if (entry.url) { blobUrls[uuid] = entry.url; return; } if (entry.url) { blobUrls[uuid] = entry.url; return; }
+      try {
+        const binaryStr = atob(entry.data);
+        const bytes = new Uint8Array(binaryStr.length);
+        for (let i = 0; i < binaryStr.length; i++) bytes[i] = binaryStr.charCodeAt(i);
+
+        let finalBytes = bytes;
+        if (entry.compressed) {
+          if (typeof DecompressionStream !== 'undefined') {
+            const ds = new DecompressionStream('gzip');
+            const writer = ds.writable.getWriter();
+            const reader = ds.readable.getReader();
+            writer.write(bytes);
+            writer.close();
+            const chunks = [];
+            let totalLen = 0;
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              chunks.push(value);
+              totalLen += value.length;
+            }
+            finalBytes = new Uint8Array(totalLen);
+            let offset = 0;
+            for (const chunk of chunks) { finalBytes.set(chunk, offset); offset += chunk.length; }
+          } else {
+            console.warn('DecompressionStream not available, asset ' + uuid + ' may not render');
+          }
+        }
+
+        if (pageSet.has(uuid)) {
+          pageTexts[uuid] = new TextDecoder().decode(finalBytes);
+          return;
+        }
+        if (FONT_MIME.test(entry.mime) && MIME_TOKEN.test(entry.mime)) {
+          // Strict artifact hosts allow font-src data: but not blob:.
+          blobUrls[uuid] = 'data:' + entry.mime + ';base64,' +
+            (entry.compressed ? toBase64(finalBytes) : entry.data);
+        } else {
+          const blob = new Blob([finalBytes], { type: entry.mime });
+          blobUrls[uuid] = URL.createObjectURL(blob);
+          resourceBlobs[blobUrls[uuid]] = blob;
+        }
+      } catch (err) {
+        console.error('Failed to decode asset ' + uuid + ':', err);
+        const blob = new Blob([], { type: entry.mime });
+        blobUrls[uuid] = URL.createObjectURL(blob);
+        resourceBlobs[blobUrls[uuid]] = blob;
+      }
+    }));
+
+    const extResEl = document.querySelector('script[type="__bundler/ext_resources"]');
+    const extResources = extResEl ? JSON.parse(extResEl.textContent) : [];
+    const resourceMap = {};
+    for (const entry of extResources) {
+      if (blobUrls[entry.uuid]) resourceMap[entry.id] = blobUrls[entry.uuid];
+    }
+
+    // Artifact-host CSP (connect-src 'self') refuses fetch() of blob: URLs —
+    // consumers read these Blobs directly. Survives the swap like the error sink.
+    window.__resourceBlobs = resourceBlobs;
+
+    setStatus('Rendering...');
+    // Page uuids have no blob here — they ride inside about:blank#<uuid>
+    // frame markers the pass below resolves after the swap.
+    for (const uuid of uuids) {
+      if (pageSet.has(uuid)) continue;
+      template = template.split(uuid).join(blobUrls[uuid]);
+    }
+
+    // Strip integrity + crossorigin — blob URLs from a file:// document inherit
+    // a null origin, so crossorigin forces a CORS fetch that SRI then rejects.
+    // The manifest bytes are ours; SRI protects against CDN compromise, not this.
+    template = template.replace(/\s+integrity="[^"]*"/gi, '').replace(/\s+crossorigin="[^"]*"/gi, '');
+
+    const resourceScript = '<script>window.__resources = ' +
+      JSON.stringify(resourceMap).replace(/<\//g, '<\\/') +
+      ';</' + 'script>';
+    // Inject after <head> so the DOCTYPE stays first; prepending the script
+    // would push the parser into quirks mode. DOMParser always emits a <head>
+    // (synthesizing one if the source HTML omitted it) but may carry
+    // attributes through, so match the full opening tag. slice() rather than
+    // replace() keeps us clear of $-pattern substitution in resourceScript.
+    const headOpen = template.match(/<head[^>]*>/i);
+    if (headOpen) {
+      const i = headOpen.index + headOpen[0].length;
+      template = template.slice(0, i) + resourceScript + template.slice(i);
+    }
+
+    // Parse the template and swap the root element. Scripts inserted via
+    // DOMParser/replaceWith are inert per spec — re-create each with
+    // createElement so they execute, awaiting onload for src scripts to
+    // preserve ordering (React before ReactDOM before Babel before text/babel).
+    const doc = new DOMParser().parseFromString(template, 'text/html');
+    document.documentElement.replaceWith(doc.documentElement);
+
+    // Resolve page-frame markers: mint this document's own blob for each
+    // framed page — from local text when this is the root, otherwise by
+    // asking the direct parent over the relay protocol above. An
+    // unanswered request leaves the frame on about:blank, the same
+    // degraded state as a refused embed.
+    {
+      const MARKER = /^about:blank#([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(#.*)?$/;
+      const needed = [];
+      for (const el of Array.from(document.querySelectorAll('iframe'))) {
+        const m = MARKER.exec(el.getAttribute('src') || '');
+        if (!m) continue;
+        const text = pageTexts[m[1]];
+        if (typeof text === 'string') {
+          mountPage(el, m[2] || '', text);
+        } else if (window.parent !== window && !isPageRoot) {
+          const had = pendingFrames[m[1]];
+          (pendingFrames[m[1]] = had || []).push({ el: el, frag: m[2] || '' });
+          if (!had) needed.push(m[1]);
+        }
+      }
+      for (const uuid of needed) {
+        window.parent.postMessage({ __bundler_need: uuid }, OWN_TARGET);
+      }
+    }
+
+    const dead = Array.from(document.scripts);
+    for (const old of dead) {
+      const s = document.createElement('script');
+      for (const a of old.attributes) s.setAttribute(a.name, a.value);
+      s.textContent = old.textContent;
+      // text/babel scripts with a src: read and inline. transformScriptTags
+      // does XHR against the src, but blob:null/ from a file:// origin is
+      // silently dropped. Inlining makes it a plain inline babel script,
+      // which transformScriptTags handles unconditionally.
+      if ((s.type === 'text/babel' || s.type === 'text/jsx') && s.src) {
+        const pre = resourceBlobs[s.src.split('#')[0]];
+        s.textContent = pre ? await pre.text() : await (await fetch(s.src)).text();
+        s.removeAttribute('src');
+      }
+      const p = s.src ? new Promise(function(r) { s.onload = s.onerror = r; }) : null;
+      old.replaceWith(s);
+      if (p) await p;
+    }
+    // Babel standalone auto-transforms type=text/babel on DOMContentLoaded,
+    // which fired before we swapped the document. Trigger manually if present.
+    if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
+      window.Babel.transformScriptTags();
+    }
+  } catch (err) {
+    setStatus('Error unpacking: ' + err.message);
+    console.error('Bundle unpack error:', err);
+  }
+});
+
+  </script>
+
+  <script type="__bundler/manifest">{"42b5bdec-f8fb-42ef-b28f-f77d833316ae":{"mime":"application/javascript","url":"_shared/e3291441a8217329.js"},"5420f483-682f-45ba-a14e-29681fcc6af0":{"mime":"text/javascript","url":"_shared/8fe7df74405f3c55.js"},"d11009a9-16a0-4661-8d17-1c1090e61881":{"mime":"application/javascript","url":"_shared/9be5ad5a6d2042ab.js"},"6cf90325-c7ed-42e1-8a90-8b3dfc41690c":{"mime":"text/javascript","url":"_shared/d949f1c3687aedad.js"},"510d743a-d712-434b-bbce-a5becc4940be":{"mime":"text/javascript","url":"_shared/35f4f974f4b2bcd4.js"}}</script>
+
+  <script type="__bundler/ext_resources">
+[{"id":"https://unpkg.com/react@18.3.1/umd/react.production.min.js","uuid":"6cf90325-c7ed-42e1-8a90-8b3dfc41690c"},{"id":"https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js","uuid":"510d743a-d712-434b-bbce-a5becc4940be"}]
+  </script>
+
+  <script type="__bundler/page_order">
+[]
+  </script>
+
+  <script type="__bundler/template">"<!DOCTYPE html>\n<html data-theme=\"light\"><head><link rel=\"stylesheet\" data-bw=\"linda-optimizada\" href=\"_shared/4d0092b613c18c6c.css\">\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<script src=\"5420f483-682f-45ba-a14e-29681fcc6af0\"><\u002Fscript>\n\n<\u002Fhead>\n<body>\n<x-dc>\n<helmet>\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<link rel=\"stylesheet\" href=\"_shared/79a2b567265fa2f5.css\">\n<script src=\"42b5bdec-f8fb-42ef-b28f-f77d833316ae\"><\u002Fscript>\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin=\"\">\n<style>/* vietnamese */\n\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Bricolage Grotesque';\n  font-style: normal;\n  font-weight: 500;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/bricolage-grotesque-normal-500-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* vietnamese */\n\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Bricolage Grotesque';\n  font-style: normal;\n  font-weight: 600;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/bricolage-grotesque-normal-500-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* vietnamese */\n\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Bricolage Grotesque';\n  font-style: normal;\n  font-weight: 700;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/bricolage-grotesque-normal-500-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Instrument Sans';\n  font-style: italic;\n  font-weight: 400;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/instrument-sans-italic-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Instrument Sans';\n  font-style: normal;\n  font-weight: 400;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/instrument-sans-normal-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Instrument Sans';\n  font-style: normal;\n  font-weight: 500;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/instrument-sans-normal-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Instrument Sans';\n  font-style: normal;\n  font-weight: 600;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/instrument-sans-normal-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n\n/* cyrillic */\n\n/* greek-ext */\n\n/* greek */\n\n/* math */\n\n/* symbols */\n\n/* vietnamese */\n\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Roboto';\n  font-style: normal;\n  font-weight: 400;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/roboto-normal-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n\n/* cyrillic */\n\n/* greek-ext */\n\n/* greek */\n\n/* math */\n\n/* symbols */\n\n/* vietnamese */\n\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Roboto';\n  font-style: normal;\n  font-weight: 500;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/roboto-normal-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n\n/* cyrillic */\n\n/* greek-ext */\n\n/* greek */\n\n/* math */\n\n/* symbols */\n\n/* vietnamese */\n\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Roboto';\n  font-style: normal;\n  font-weight: 600;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/roboto-normal-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n/* cyrillic-ext */\n\n/* cyrillic */\n\n/* greek-ext */\n\n/* greek */\n\n/* math */\n\n/* symbols */\n\n/* vietnamese */\n\n/* latin-ext */\n\n/* latin */\n@font-face {\n  font-family: 'Roboto';\n  font-style: normal;\n  font-weight: 700;\n  font-stretch: 100%;\n  font-display: swap;\n  src: url(\"_fonts/roboto-normal-400-latin.woff2\") format('woff2');\n  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n}\n<\u002Fstyle>\n<link rel=\"stylesheet\" href=\"_shared/ecfeeda86996f4a1.css\">\n<link rel=\"stylesheet\" href=\"_shared/57c4eed727eb198b.css\">\n<script src=\"d11009a9-16a0-4661-8d17-1c1090e61881\"><\u002Fscript>\n<link rel=\"stylesheet\" href=\"_shared/0c5c34750533b5a3.css\">\n<style>.ch.ai{background:#F5EBFF!important;color:#8A3BD0!important}.v2-card .a b{color:#B056F6!important}<\u002Fstyle><\u002Fhelmet>\n\n<div ref=\"{{ rootRef }}\" class=\"bw-stage\" data-vis=\"{{ vis }}\" data-hl=\"{{ hl }}\" style=\"background:{{ pageBg }};--sc:{{ scale }};--dk:{{ deskScale }}\">\n  <div class=\"bw-ph\">\n  <div class=\"bw-cam\" ref=\"{{ camRef }}\">\n  <div class=\"bw-poplayer\" ref=\"{{ popRef }}\"><\u002Fdiv>\n  <div class=\"phone-wrap\" style=\"--scale:{{ scale }}\">\n    <div class=\"phone\" data-ptheme=\"light\">\n      <span class=\"bw-rb\" style=\"left:-2.5px;top:168px;height:30px\"><\u002Fspan>\n      <span class=\"bw-rb\" style=\"left:-2.5px;top:222px;height:58px\"><\u002Fspan>\n      <span class=\"bw-rb\" style=\"left:-2.5px;top:294px;height:58px\"><\u002Fspan>\n      <span class=\"bw-rb\" style=\"right:-2.5px;top:258px;height:92px\"><\u002Fspan>\n      <div class=\"device\" ref=\"{{ dvRef }}\">\n        <div class=\"island\"><\u002Fdiv>\n        <div class=\"statusbar\"><span>9:41<\u002Fspan><span class=\"r\">\n          <svg sc-camel-view-box=\"0 0 20 14\" fill=\"currentColor\"><rect x=\"0\" y=\"9\" width=\"3\" height=\"5\" rx=\"1\"><\u002Frect><rect x=\"5\" y=\"6\" width=\"3\" height=\"8\" rx=\"1\"><\u002Frect><rect x=\"10\" y=\"3\" width=\"3\" height=\"11\" rx=\"1\"><\u002Frect><rect x=\"15\" y=\"0\" width=\"3\" height=\"14\" rx=\"1\"><\u002Frect><\u002Fsvg>\n          <svg sc-camel-view-box=\"0 0 26 14\" fill=\"none\" stroke=\"currentColor\"><rect x=\".75\" y=\".75\" width=\"21\" height=\"12.5\" rx=\"3\"><\u002Frect><rect x=\"2.5\" y=\"2.5\" width=\"16\" height=\"9\" rx=\"1.5\" fill=\"currentColor\" stroke=\"none\"><\u002Frect><path d=\"M23.5 5v4\" stroke-width=\"2\"><\u002Fpath><\u002Fsvg>\n        <\u002Fspan><\u002Fdiv>\n\n        <div class=\"screen\" ref=\"{{ scRef }}\">\n          <div class=\"screen-in\" style=\"animation:{{ screenAnim }}\">\n\n            <div class=\"h-row\" style=\"padding-top:8px\"><div class=\"hd\">Conversaciones<\u002Fdiv><span class=\"chip ok\" style=\"flex:none\">Luna lo tiene bajo control<\u002Fspan><\u002Fdiv>\n            <label class=\"search\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"11\" cy=\"11\" r=\"6.5\"><\u002Fcircle><path d=\"m20 20-4.3-4.3\"><\u002Fpath><\u002Fsvg><input type=\"search\" placeholder=\"Buscar conversación por cliente\" aria-label=\"Buscar conversación\" readonly=\"readonly\"><\u002Flabel>\n            <div class=\"filters\" role=\"group\" aria-label=\"Filtrar conversaciones\">\n              <button type=\"button\" class=\"chip ghost\" aria-pressed=\"true\">Todas<\u002Fbutton>\n              <button type=\"button\" class=\"chip ghost\" aria-pressed=\"false\">Requiere atención<\u002Fbutton>\n              <button type=\"button\" class=\"chip ghost\" aria-pressed=\"false\">Activas<\u002Fbutton>\n              <button type=\"button\" class=\"chip ghost\" aria-pressed=\"false\">Finalizadas<\u002Fbutton>\n            <\u002Fdiv>\n            <div style=\"display:flex;flex-direction:column;gap:10px\">\n              <sc-for list=\"{{ convs }}\" as=\"r\" hint-placeholder-count=\"4\">\n                <button type=\"button\" class=\"conv {{ r.live }}\">\n                  <span class=\"crow\">\n                    <span class=\"ch {{ r.canal }}\">{{ r.icono }}<\u002Fspan>\n                    <span class=\"name\" style=\"flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">{{ r.nombre }}<\u002Fspan>\n                    <span class=\"chip ok\" style=\"font-size:11px;flex:none\">Activa<\u002Fspan>\n                    <span class=\"when\">{{ r.when }}<\u002Fspan>\n                  <\u002Fspan>\n                  <span class=\"body\"><span class=\"prev\" style=\"margin-top:6px\"><span><b>Luna: <\u002Fb>{{ r.prev }}<\u002Fspan><\u002Fspan><\u002Fspan>\n                <\u002Fbutton>\n              <\u002Fsc-for>\n            <\u002Fdiv>\n          <\u002Fdiv>\n        <\u002Fdiv>\n\n        <div class=\"v2-veil\"><\u002Fdiv>\n\n        <nav class=\"tabbar\" aria-label=\"Navegación\">\n          <button type=\"button\" class=\"tab\" aria-current=\"false\" aria-label=\"Inicio\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10\"><\u002Fpath><\u002Fsvg><\u002Fbutton>\n          <button type=\"button\" class=\"tab\" aria-current=\"false\" aria-label=\"Contactos\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"9\" cy=\"8\" r=\"3.5\"><\u002Fcircle><path d=\"M2.5 19.5c.6-3.3 3.3-5 6.5-5s5.9 1.7 6.5 5M16 5a3 3 0 0 1 0 6m2 3.6c2 .6 3.2 2 3.5 4.9\"><\u002Fpath><\u002Fsvg><\u002Fbutton>\n          <button type=\"button\" class=\"tab-linda beam tl-avatar\" aria-current=\"false\" aria-label=\"Abrir Luna, el asistente\"><span class=\"lp-dice tb-dice\" aria-hidden=\"true\"><\u002Fspan><div class=\"linda lpj st-lista a-ninguno au-jabon\" style=\"--s:54px\" aria-hidden=\"true\"><div class=\"halo\"><\u002Fdiv><div class=\"pulse\"><\u002Fdiv><div class=\"pulse p2\"><\u002Fdiv><div class=\"shadow\"><\u002Fdiv><div class=\"lload\"><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><\u002Fdiv><div class=\"body\"><div class=\"rimglow\"><div class=\"rim glow\"><\u002Fdiv><\u002Fdiv><div class=\"core\"><\u002Fdiv><div class=\"rim\"><\u002Fdiv><div class=\"rim hot\"><\u002Fdiv><div class=\"rimline\"><\u002Fdiv><div class=\"orbits\"><span><\u002Fspan><span><\u002Fspan><span><\u002Fspan><\u002Fdiv><div class=\"eyes\"><div class=\"eye\"><\u002Fdiv><div class=\"eye\"><\u002Fdiv><div class=\"acc acc-gafas\"><div class=\"lens\"><\u002Fdiv><div class=\"bridge\"><\u002Fdiv><div class=\"lens\"><\u002Fdiv><\u002Fdiv><\u002Fdiv><div class=\"bubble\"><\u002Fdiv><div class=\"wstrokes\"><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><\u002Fdiv><div class=\"w2\"><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><\u002Fdiv><div class=\"bstrokes\"><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><\u002Fdiv><div class=\"water\"><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><\u002Fdiv><div class=\"liquid\"><b><\u002Fb><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><\u002Fdiv><div class=\"lgloss\"><\u002Fdiv><div class=\"soap\"><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><i><\u002Fi><\u002Fdiv><div class=\"acc acc-sombrero\"><div class=\"brim\"><\u002Fdiv><div class=\"crown\"><\u002Fdiv><div class=\"hband\"><\u002Fdiv><\u002Fdiv><div class=\"acc acc-audifonos\"><div class=\"arc\"><\u002Fdiv><div class=\"cup l\"><\u002Fdiv><div class=\"cup r\"><\u002Fdiv><\u002Fdiv><\u002Fdiv><\u002Fdiv><span class=\"tb-badge\">3<\u002Fspan><\u002Fbutton>\n          <button type=\"button\" class=\"tab\" aria-current=\"false\" aria-label=\"Agenda\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"3\"><\u002Frect><path d=\"M3 10h18M8 3v4M16 3v4\"><\u002Fpath><\u002Fsvg><\u002Fbutton>\n          <button type=\"button\" class=\"tab\" aria-current=\"true\" aria-label=\"Inbox\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 12a8 8 0 0 1-11.7 7.1L4 20l.9-4.3A8 8 0 1 1 20 12Z\"><\u002Fpath><\u002Fsvg><\u002Fbutton>\n        <\u002Fnav>\n\n        <sc-if value=\"{{ tapOn }}\" hint-placeholder-val=\"{{ false }}\">\n          <span style=\"position:absolute;z-index:61;pointer-events:none;left:{{ tapX }};top:{{ tapY }};width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:rgba(10,37,64,.46);box-shadow:0 0 0 3px rgba(255,255,255,.75),0 8px 22px -6px rgba(10,37,64,.5);animation:bw-press .85s cubic-bezier(.2,.8,.2,1) both\"><\u002Fspan>\n          <span style=\"position:absolute;z-index:60;pointer-events:none;left:{{ tapX }};top:{{ tapY }};width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:3px solid var(--p-accent);animation:bw-tap .85s cubic-bezier(.2,.8,.2,1) both\"><\u002Fspan>\n        <\u002Fsc-if>\n\n        <div style=\"position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:78px;height:4px;border-radius:3px;background:color-mix(in oklch, var(--p-fg) 22%, transparent);z-index:31\"><\u002Fdiv>\n        <div class=\"bw-shade\" ref=\"{{ shadeRef }}\"><\u002Fdiv>\n      <\u002Fdiv>\n    <\u002Fdiv>\n    <div class=\"v2-cards\" data-ptheme=\"light\">\n      <div class=\"v2-card {{ c1 }}\"><span class=\"ch ai\">Luna<\u002Fspan><span class=\"tx\"><span class=\"t\">Respondo yo<\u002Fspan><span class=\"d\">· en el momento, en todos tus canales<\u002Fspan><\u002Fspan><\u002Fdiv>\n\n      <div class=\"v2-pop {{ c2 }}\">\n        <button type=\"button\" class=\"conv live beam\" style=\"width:100%\">\n          <span class=\"crow\">\n            <span class=\"ch wa\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.2A8.5 8.5 0 1 0 12 3.5Z\"><\u002Fpath><path d=\"M9 8.5c0 3.5 3 6.5 6.5 6.5l.8-1.6-2-1-1 .9a5 5 0 0 1-2.6-2.6l.9-1-1-2Z\"><\u002Fpath><\u002Fsvg><\u002Fspan>\n            <span class=\"name\" style=\"flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis\">Daniela Suárez<\u002Fspan>\n            <span class=\"chip ok\" style=\"font-size:11px;flex:none\">Activa<\u002Fspan>\n            <span class=\"when\">23:10<\u002Fspan>\n          <\u002Fspan>\n          <span class=\"body\"><span class=\"prev\" style=\"margin-top:6px\"><span><b>Luna: <\u002Fb>Hola Daniela, sí atendemos mañana domingo de 10:00 a 18:00. ¿Te busco un turno?<\u002Fspan><\u002Fspan><\u002Fspan>\n        <\u002Fbutton>\n      <\u002Fdiv>\n\n      <div class=\"v2-pop {{ c3 }}\">\n        <div class=\"a1-cmt\">\n          <span class=\"hdr\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"5\"><\u002Frect><circle cx=\"12\" cy=\"12\" r=\"3.5\"><\u002Fcircle><circle cx=\"17\" cy=\"7\" r=\".8\" fill=\"currentColor\"><\u002Fcircle><\u002Fsvg><span>Comentario en Instagram<\u002Fspan><\u002Fspan>\n          <span class=\"q\">¿cuánto cuesta el balayage? 💕<\u002Fspan>\n          <span class=\"a\"><b>Luna<\u002Fb> · Desde $280.000 según el largo. Te escribo por privado para reservarte un turno 💬<\u002Fspan>\n          <span class=\"foot\"><svg sc-camel-view-box=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.9\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"5\"><\u002Frect><circle cx=\"12\" cy=\"12\" r=\"3.5\"><\u002Fcircle><circle cx=\"17\" cy=\"7\" r=\".8\" fill=\"currentColor\"><\u002Fcircle><\u002Fsvg><span>Sigo en el privado de Instagram<\u002Fspan><\u002Fspan>\n        <\u002Fdiv>\n      <\u002Fdiv>\n    <\u002Fdiv>\n    <\u002Fdiv>\n  <\u002Fdiv>\n  <\u002Fdiv>\n  <\u002Fdiv>\n\n\n<\u002Fx-dc>\n<script type=\"text/x-dc\" data-dc-script=\"\" data-props=\"{&quot;velocidad&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animación&quot;},&quot;reproducir&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Animación&quot;},&quot;fondo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Transparente&quot;,&quot;options&quot;:[&quot;Transparente&quot;,&quot;Degradado Luna&quot;,&quot;Blanco&quot;,&quot;Tinta&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Composición&quot;}}\">\nconst BG = {\n  'Degradado Luna': 'radial-gradient(900px 620px at 12% -8%, #DFEDFE 0%, transparent 58%), radial-gradient(820px 560px at 108% 112%, #D6F6EB 0%, transparent 62%), #F6F9FD',\n  'Blanco': '#FFFFFF',\n  'Tinta': 'radial-gradient(900px 620px at 12% -8%, oklch(32% 0.06 259) 0%, transparent 58%), #0A2540',\n  'Transparente': 'transparent'\n};\n\nconst CONVS = [\n  { id: 'ana', canal: 'wa', nombre: 'Ana Lucía Gómez', when: '14:02', prev: 'Listo, te espero el jueves a las 16:00 con Valeria.' },\n  { id: 'sofia', canal: 'ig', nombre: 'Sofía Hernández', when: '13:47', prev: 'Te propongo el jueves 10 a las 16:00, ¿te sirve?' },\n  { id: 'carmen', canal: 'fb', nombre: 'Carmen Ortiz', when: '12:20', prev: 'Sí, hacemos keratina. Son 2 h y queda desde $190.000.' },\n  { id: 'web', canal: 'web', nombre: 'Lucía Peña', when: '11:58', prev: 'El balayage está desde $280.000 según el largo.' }\n];\n\nconst CONTACTOS = [\n  { id: 'maria', estado: 'activa', hoy: true, nombre: 'María Restrepo', resumen: 'Viene cada 3 semanas a color y corte. Hoy trae referida a su hermana.', when: 'Hoy 15:00', whenCls: 'today' },\n  { id: 'ana', estado: 'activa', hoy: true, nombre: 'Ana Lucía Gómez', resumen: 'Manicure semanal. Pide siempre a Daniela y llega puntual.', when: 'Hoy 16:30', whenCls: 'today' },\n  { id: 'valentina', estado: 'nueva', hoy: true, nombre: 'Valentina Ruiz', resumen: 'Cejas cada mes. Canceló dos veces el último trimestre.', when: 'Hoy 18:00', whenCls: 'today' },\n  { id: 'luisa', estado: 'dormida', hoy: false, nombre: 'Luisa Fernanda Arango', resumen: 'Cepillado cada 3 semanas, pero lleva 74 días sin agendar. Alérgica al amoníaco.', when: 'Hace 74 días', whenCls: 'ago', inactivo: true },\n  { id: 'sara', estado: 'activa', hoy: false, nombre: 'Sara Villegas', resumen: 'Cepillado antes de cada evento. Escribe por Instagram.', when: 'Hace 2 sem', whenCls: 'ago' },\n  { id: 'camila', estado: 'activa', hoy: true, nombre: 'Camila Duque', resumen: 'Manicure y pedicure cada quince días. Hoy pidió descuento.', when: 'Hoy 13:30', whenCls: 'today' },\n  { id: 'sofia', estado: 'nueva', hoy: false, nombre: 'Sofía Hernández', resumen: 'Preguntó por balayage en Instagram. Aún no ha agendado.', when: 'Nueva', whenCls: 'ago' },\n  { id: 'paula', estado: 'nueva', hoy: false, nombre: 'Paula Andrea Cardona', resumen: 'Primera visita la semana pasada: corte y cepillado.', when: 'Hace 6 días', whenCls: 'ago' },\n  { id: 'manuela', estado: 'dormida', hoy: false, nombre: 'Manuela Jaramillo', resumen: 'Venía cada mes a cejas. Lleva 95 días sin agendar.', when: 'Hace 95 días', whenCls: 'ago' }\n];\n\n\nconst TAGS = [\n  { t: 'Más de 60 días sin visita', k: 'problem' },\n  { t: 'Alérgica al amoníaco', k: 'problem' },\n  { t: 'Alto valor', k: 'objective' },\n  { t: 'Trae referidas', k: 'objective' },\n  { t: 'Lista para recomprar', k: 'goal' },\n  { t: 'No tolera esperas', k: 'feeling' },\n  { t: 'Agenda por WhatsApp', k: 'action' }\n];\n\nconst HIST = [\n  { d: '12 jun', s: 'Cepillado', a: 'USD 12' },\n  { d: '22 may', s: 'Tratamiento de keratina', a: 'USD 45' },\n  { d: '30 abr', s: 'Cepillado', a: 'USD 12' },\n  { d: '09 abr', s: 'Color y corte', a: 'USD 42' }\n];\n\nclass Component extends DCLogic {\n  rootRef = React.createRef();\n  camRef = React.createRef();\n  popRef = React.createRef();\n  shadeRef = React.createRef();\n  dvRef = React.createRef();\n  scRef = React.createRef();\n  tagsRef = React.createRef();\n  histRef = React.createRef();\n  fotosRef = React.createRef();\n  state = { scale: 1 };\n\n  /* Referente 2: el celular siempre completo y quieto. Cada momento clave sale\n     de la pantalla hacia un lado, se sostiene y vuelve a su sitio exacto. */\n  /* Un cue por momento del texto. El scroll de la página recorre los cuatro\n     tramos sin reiniciar: el aparato es el mismo de principio a fin. */\n  /* Un momento por frase del texto, y cada uno saca su bloque del aparato.\n     Los cuartos del recorrido coinciden con las cuatro secciones de la página. */\n  /* Un momento por frase del texto, y cada uno saca su bloque del aparato.\n     Los cuartos del recorrido coinciden con las cuatro secciones de la página. */\n  /* Escena estática: la lista se queda quieta; lo que ocurre son las cuatro\n     piezas que entran encima, en el orden del texto. */\n  /* El filtro cambia solo y, en cada paso, salen en tarjetas verticales los\n     contactos que deja: con cita hoy → nuevos → inactivos → todos. */\n  /* Las piezas entran de arriba abajo, una tras otra. */\n  CUES = [\n    [0,     { paso: 0, view: 'list', tap: null, pop: null, scroll: 0, hl: null }],\n    [900,   { paso: 1 }],\n    [2300,  { paso: 2 }],\n    [4000,  { paso: 3 }]\n  ];\n  LOOP = 8600;\n\n  POPS = {\n    cita:     { sel: '.next-cita', dy: -2, hold: 1500, radius: 16 },\n    resumen:  { sel: '.resumen', dy: -4, hold: 1700, radius: 20 },\n    tags:     { sel: 'bw-tags', dy: 0, hold: 2000, radius: 18 },\n    datos:    { sel: '.phone-row', dy: 0, hold: 1600, radius: 16 },\n    hist:     { sel: 'bw-hist', dy: -10, hold: 1900, radius: 18 },\n    fotos:    { sel: 'bw-fotos', dy: 0, hold: 1500, radius: 18 },\n    filtros:  { sel: '.filters', dy: 0, hold: 1700, radius: 16 }\n  };\n\n  /* El punto del toque se mide sobre el elemento vivo justo antes de pintarlo:\n     con coordenadas fijas el anillo se despega en cuanto cambia el scroll, el\n     acordeón se abre o el contenido crece. */\n  tapTarget(key) {\n    const stage = this.rootRef.current;\n    if (!stage) return null;\n    if (key === 'back') return stage.querySelector('.back');\n    if (key === 'tags') return this.tagsRef.current && this.tagsRef.current.querySelector('.acc-h');\n    if (key === 'hist') return this.histRef.current && this.histRef.current.querySelector('.acc-h');\n    if (key === 'fotos') return this.fotosRef.current && this.fotosRef.current.querySelector('.acc-h');\n    return [...stage.querySelectorAll('.ccard')].find(e => e.textContent.indexOf('Luisa') >= 0);\n  }\n\n  measureTap(key) {\n    const el = this.tapTarget(key), dv = this.dvRef.current;\n    if (!el || !dv) { this.tapPt = null; return; }\n    const b = dv.getBoundingClientRect(), r = el.getBoundingClientRect();\n    if (!r.width || !dv.offsetWidth) { this.tapPt = null; return; }\n    /* escala AMBIENTE real (ajuste del teléfono × zoom de cámara), medida sobre\n       el propio dispositivo: usar sólo state.scale desplazaba el anillo */\n    const s = b.width / dv.offsetWidth;\n    this.tapPt = [\n      Math.round((r.left + r.width / 2 - b.left) / s),\n      Math.round((r.top + r.height / 2 - b.top) / s)\n    ];\n  }\n\n  componentDidMount() {\n    this.dead = false;\n    this.fit();\n    this.ro = new ResizeObserver(() => this.fit());\n    if (this.rootRef.current) this.ro.observe(this.rootRef.current);\n    this.onResize = () => this.fit();\n    window.addEventListener('resize', this.onResize);\n    requestAnimationFrame(() => this.fit());\n    this.listen();\n    if ((this.props.reproducir ?? true) === false) {\n      this.frozen = true;\n      this.setState({ view: 'ficha', hist: true });\n    } else { this.run(); }\n  }\n  componentDidUpdate(prev) {\n    /* el prop permite revisar a mano un punto concreto del guion */\n    const p = this.props.progreso;\n    if (p != null && prev && p !== prev.progreso) {\n      if (!this.driven) { this.driven = true; this.clear(); }\n      this.seekTo(p);\n    }\n    this.arm(); this.sync();\n    const tk = this.state.tap;\n    if (tk !== this.firedTap) {\n      this.firedTap = tk;\n      if (tk) { this.measureTap(tk); this.forceUpdate(); } else { this.tapPt = null; }\n    }\n    const k = this.state.pop;\n    if (k !== this.firedPop) {\n      this.firedPop = k;\n      if (k) requestAnimationFrame(() => requestAnimationFrame(() => this.firePop(k)));\n    }\n  }\n  componentWillUnmount() {\n    this.dead = true;\n    this.ro && this.ro.disconnect();\n    if (this.onResize) window.removeEventListener('resize', this.onResize);\n    if (this.onVis) document.removeEventListener('visibilitychange', this.onVis);\n    if (this.onMsg) window.removeEventListener('message', this.onMsg);\n    this.clear();\n  }\n  clear() {\n    if (this.timer) clearInterval(this.timer);\n    if (this.raf) cancelAnimationFrame(this.raf);\n    this.timer = null; this.raf = null;\n  }\n  arm() { if (!this.timer && !this.frozen && !this.dead && !this.driven) this.run(); }\n\n  tick() {\n    if (this.dead || this.frozen || this.driven) return;\n    const sp = this.props.velocidad ?? 1;\n    const phase = ((performance.now() - this.t0) * sp) % this.LOOP;\n    const next = {};\n    for (let i = 0; i < this.CUES.length; i++) {\n      if (this.CUES[i][0] <= phase) Object.assign(next, this.CUES[i][1]); else break;\n    }\n    for (const k in next) {\n      if (this.state[k] !== next[k]) { this.setState(next); return; }\n    }\n  }\n\n  run() {\n    this.clear();\n    if (this.t0 == null) this.t0 = performance.now();\n    if (!this.onVis) { this.onVis = () => this.arm(); document.addEventListener('visibilitychange', this.onVis); }\n    const frame = () => { this.fit(); this.tick(); this.sync(); this.raf = requestAnimationFrame(frame); };\n    this.raf = requestAnimationFrame(frame);\n    this.timer = setInterval(() => { this.fit(); this.tick(); }, 200);\n  }\n\n  /* Guiada por el scroll: la sección de la página es un bloque anclado, así que\n     el anfitrión manda su avance (0→1) y la escena enseña exactamente lo que el\n     texto está diciendo en ese punto. Si no llega ningún mensaje, se reproduce\n     sola, de modo que el archivo sigue sirviendo suelto.\n\n       iframe.contentWindow.postMessage({type:'bewe-scene-progress', value:p}, '*')\n\n     También acepta el prop `progreso` para revisarla a mano. */\n  seekTo(p) {\n    const phase = Math.max(0, Math.min(1, p)) * this.LOOP;\n    const next = {};\n    for (let i = 0; i < this.CUES.length; i++) {\n      if (this.CUES[i][0] <= phase) Object.assign(next, this.CUES[i][1]); else break;\n    }\n    for (const k in next) {\n      if (this.state[k] !== next[k]) { this.setState(next); return; }\n    }\n  }\n\n  listen() {\n    this.onMsg = (e) => {\n      const d = e.data;\n      if (!d || d.type !== 'bewe-scene-progress') return;\n      if (!this.driven) { this.driven = true; this.clear(); }\n      this.fit();\n      this.seekTo(+d.value || 0);\n      this.sync();\n    };\n    window.addEventListener('message', this.onMsg);\n  }\n\n  /* el celular se ve ENTERO y centrado, con aire para que el pop pueda salirse */\n  fit() {\n    const el = this.rootRef.current; if (!el) return;\n    const availW = Math.max(160, el.clientWidth || 0);\n    const availH = Math.max(160, el.clientHeight || 0);\n    /* en la escena compuesta el celular se ve entero y pequeño; el monitor lleva su propia escala */\n    /* el aparato se ve entero: la caja manda por el lado más estrecho */\n    const dk = 1;\n    /* deja aire a los lados: los bloques salen del aparato */\n    const next = Math.min(availW * 0.72 / 390, availH / 640);\n    if (Math.abs(next - (this.state.scale || 0)) > 0.002\n      || Math.abs(dk - (this.state.deskScale || 0)) > 0.002) this.setState({ scale: next, deskScale: dk });\n  }\n\n  /* Un cue puede pedir un número de px o el nombre de un bloque: en ese caso el\n     destino se calcula para dejar ese bloque centrado en pantalla, de modo que\n     el pop no aterrice sobre algo pegado al borde inferior. */\n  sync() {\n    const sc = this.scRef.current;\n    if (!sc) return;\n    const want = this.state.scroll || 0;\n    if (this.lastScroll === want) return;\n    let top = want;\n    if (typeof want === 'string') {\n      const SEL = {\n        cita: '.next-cita', resumen: '.resumen', datos: '.phone-row',\n        tagsHead: '.acc:first-of-type', tags: '.acc:first-of-type .acc-b',\n        histHead: '.acc:nth-of-type(2)', hist: '.acc:nth-of-type(2) .acc-b',\n        fotosHead: '.acc:last-of-type', fotos: '.acc:last-of-type .acc-b',\n        filtros: '.filters'\n      };\n      const host = this.scRef.current && this.scRef.current.querySelector(SEL[want] || '');\n      if (!host) return;\n      const hr = host.getBoundingClientRect(), sr = sc.getBoundingClientRect();\n      const s = this.state.scale || 1;\n      top = sc.scrollTop + (hr.top - sr.top) / s - (sc.clientHeight - hr.height / s) / 2;\n      top = Math.max(0, Math.round(top));\n    }\n    this.lastScroll = want;\n    sc.scrollTo({ top, behavior: this.driven ? 'auto' : 'smooth' });\n  }\n\n  firePop(key) {\n    const cfg = this.POPS[key];\n    const stage = this.rootRef.current;\n    if (!cfg || !stage || !window.BeweMotion) return;\n    const el = cfg.sel === 'bw-tags' ? this.tagsRef.current\n             : cfg.sel === 'bw-hist' ? this.histRef.current\n             : cfg.sel === 'bw-fotos' ? this.fotosRef.current\n             : stage.querySelector(cfg.sel);\n    if (!el) return;\n    const frame = stage.querySelector('.phone');\n    const sr = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect();\n    const k = this.state.scale || 1;\n    const room = Math.max(8, (Math.min(fr.left - sr.left, sr.right - fr.right) - 6) / k);\n    /* todos salen al mismo ancho: el del aparato más el aire disponible */\n    const w = el.getBoundingClientRect().width / k;\n    const target = (fr.width / k) + Math.min(room, 56);\n    const scale = Math.max(1.06, Math.min(1.9, w > 0 ? target / w : 1.3));\n    window.BeweMotion.pop(this.camRef.current, el, {\n      layer: this.popRef.current, stage, scale, out: cfg.out,\n      frame, overlap: room, dy: cfg.dy,\n      hold: cfg.hold, radius: cfg.radius, shade: this.shadeRef.current\n    });\n  }\n\n  renderVals() {\n    const s = this.state, p = this.props;\n    const view = s.view || 'list';\n    const paso = s.paso || 0;\n    return {\n      c1: paso >= 1 ? 'on' : '', c2: paso >= 2 ? 'on' : '', c3: paso >= 3 ? 'on' : '',\n      convs: CONVS.map(c => ({\n        id: c.id, canal: c.canal, nombre: c.nombre, when: c.when, prev: c.prev,\n        live: '', icono: React.createElement('svg', {\n          viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9,\n          strokeLinecap: 'round', strokeLinejoin: 'round',\n          dangerouslySetInnerHTML: { __html: ({\n            wa: '<path d=\"M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.2A8.5 8.5 0 1 0 12 3.5Z\"><\u002Fpath><path d=\"M9 8.5c0 3.5 3 6.5 6.5 6.5l.8-1.6-2-1-1 .9a5 5 0 0 1-2.6-2.6l.9-1-1-2Z\"><\u002Fpath>',\n            ig: '<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"5\"><\u002Frect><circle cx=\"12\" cy=\"12\" r=\"3.5\"><\u002Fcircle><circle cx=\"17\" cy=\"7\" r=\".8\" fill=\"currentColor\"><\u002Fcircle>',\n            fb: '<path d=\"M14 21v-7h2.4l.4-3H14V9.2c0-.9.3-1.5 1.5-1.5h1.4V5.1C16.6 5 15.8 5 14.9 5 12.9 5 11.5 6.2 11.5 8.8V11H9v3h2.5v7Z\"><\u002Fpath>',\n            web: '<circle cx=\"12\" cy=\"12\" r=\"8.5\"><\u002Fcircle><path d=\"M3.5 12h17M12 3.5c3 3 3 14 0 17M12 3.5c-3 3-3 14 0 17\"><\u002Fpath>'\n          })[c.canal] }\n        })\n      })),\n      hl: s.hl || false,\n      rootRef: this.rootRef, camRef: this.camRef, popRef: this.popRef,\n      shadeRef: this.shadeRef, dvRef: this.dvRef, scRef: this.scRef,\n      tagsRef: this.tagsRef, histRef: this.histRef,\n      pageBg: BG[p.fondo || 'Transparente'] || 'transparent',\n      scale: s.scale,\n      deskScale: s.deskScale ?? 0.5,\n      showList: view === 'list', showFicha: view === 'ficha',\n      screenAnim: view === 'list'\n        ? (s.back ? 'bw-screenback .34s cubic-bezier(.2,.8,.2,1) both' : 'none')\n        : 'bw-screenin .34s cubic-bezier(.2,.8,.2,1) both',\n      filtros: [['Todos', 'todas'], ['Con cita hoy', 'hoy'], ['Nuevos', 'nuevas'], ['Inactivos', 'dormidas']]\n        .map(([label, k]) => ({ label, on: (s.filtro || 'todas') === k })),\n      contactos: CONTACTOS.filter(c => {\n        const f = s.filtro || 'todas';\n        return f === 'todas' || (f === 'hoy' && c.hoy) || (f === 'nuevas' && c.estado === 'nueva') || (f === 'dormidas' && c.estado === 'dormida');\n      }).map(c => Object.assign({}, c, {\n        clonada: c.id === 'luisa' ? 'clonada' : '',\n        inactivo: !!c.inactivo,\n        press: s.tap === c.id ? 'scale(.965)' : 'none'\n      })),\n      tags: TAGS.map((t, i) => Object.assign({}, t, { d: (0.12 + i * 0.09).toFixed(2) + 's' })),\n      tagNuevaD: (0.12 + TAGS.length * 0.09).toFixed(2) + 's',\n      historial: HIST,\n      showTags: !!s.tags, showHist: !!s.hist, showFotos: !!s.fotos,\n      fotosOpen: s.fotos ? 'open' : '', fotosRef: this.fotosRef,\n      pressFotos: s.tap === 'fotos' ? 'scale(.985)' : 'none',\n      tagsOpen: s.tags ? 'open' : '', histOpen: s.hist ? 'open' : '',\n      tapOn: !!s.tap && !!this.tapPt,\n      tapX: (this.tapPt ? this.tapPt[0] : 0) + 'px',\n      tapY: (this.tapPt ? this.tapPt[1] : 0) + 'px',\n      pressBack: s.tap === 'back' ? 'scale(.82)' : 'none',\n      pressTags: s.tap === 'tags' ? 'scale(.98)' : 'none',\n      pressHist: s.tap === 'hist' ? 'scale(.98)' : 'none'\n    };\n  }\n}\n\n<\u002Fscript>\n\n\n<\u002Fbody><\u002Fhtml>"</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+/* Linda optimizada para las animaciones. GENERADO por
+   scripts/linda-optimizada-en-animaciones.mjs desde el bloque «LINDA
+   OPTIMIZADA» de src/components/linda/linda-extra.css. No editar aquí. */
+@keyframes ld-breathe2 {
+  0%,
+  100% {
+    scale: 1.05 0.96;
+  }
+  25% {
+    scale: 0.98 1.03;
+  }
+  50% {
+    scale: 0.95 1.06;
+  }
+  75% {
+    scale: 1.03 0.98;
+  }
+}
+@keyframes ld-drift2 {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes ld-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+/* =============================================================================
+   LINDA OPTIMIZADA (clase `optimizada`, la llevan todas salvo la del chat y la
+   llamada, y la cara del orbe: ver Linda.tsx). 30-10-2026.
+
+   Medido: de sus 21 animaciones, cuatro no las puede hacer la tarjeta
+   gráfica y obligan a recalcular y repintar en cada fotograma: el giro de color
+   del aro (anima `--a` dentro de un degradado), el aplastado del núcleo y del
+   aro, el brillo que late (`filter`) y la burbuja que cambia de forma
+   (`border-radius`). En «escuchando» también las ondas, que animan el grosor
+   del borde. Mientras quede UNA en marcha, el navegador trabaja sin parar: una
+   Linda de 240 px gastaba el 31% de la CPU en escritorio y una de 96 px el 95%
+   en un celular; así queda en el 1-2%.
+
+   Lo que cambia a la vista, aprobado por María:
+     - la luz del aro sigue girando, pero gira una capa por dentro del aro
+       quieto (misma imagen, girada con `rotate`, que sí va en la tarjeta);
+     - el núcleo y el aro dejan de aplastarse (un 3,5%, muy sutil);
+     - el brillo deja de latir y queda en su punto medio;
+     - la burbuja respira y gira, con la forma fija;
+     - las ondas de «escuchando» crecen y se desvanecen con el borde fijo.
+   El id del :is() solo sube la especificidad para ganar a los !important de
+   linda.css. Ese id no existe.
+   ============================================================================= */
+@keyframes ld-opt-giro {
+  to {
+    rotate: 360deg;
+  }
+}
+@keyframes ld-opt-onda {
+  0% {
+    scale: 0.97;
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.75;
+  }
+  100% {
+    scale: 1.42;
+    opacity: 0;
+  }
+}
+
+/* Cada capa que se mueve, en su propia capa de la tarjeta gráfica. */
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .core,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rim,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rimglow,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rimline,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rim::before {
+  will-change: transform, scale, translate, rotate, opacity;
+}
+
+/* Sin aplastado. En «trabajando» el núcleo conserva su parpadeo. */
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .core,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rimline,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rim:not(.hot),
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rimglow .rim.glow {
+  animation: none !important;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-trabajando .core {
+  animation: ld-flicker 0.9s ease-in-out infinite !important;
+}
+
+/* El aro queda quieto y la luz gira por dentro. */
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rim:not(.hot),
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rimglow .rim.glow {
+  background: none !important;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rim:not(.hot)::before,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .rimglow .rim.glow::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--rb));
+  animation: ld-opt-giro 8s linear infinite;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-lista .rim:not(.hot)::before,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-lista .rimglow .rim.glow::before {
+  animation-duration: 2.6s;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-lista .rim:not(.hot):not(.glow)::before {
+  background: conic-gradient(
+      from 0deg,
+      transparent 0deg 150deg,
+      rgba(255, 255, 255, 0.6) 270deg,
+      #ffffff 320deg,
+      #ffffff 355deg,
+      transparent 360deg
+    ),
+    conic-gradient(from 0deg, var(--rb));
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-lista .rimglow .rim.glow::before {
+  background: conic-gradient(
+      from 0deg,
+      transparent 0deg 200deg,
+      rgba(94, 214, 241, 0.9) 300deg,
+      #ffffff 350deg,
+      transparent 360deg
+    ),
+    conic-gradient(from 0deg, var(--rb));
+}
+
+/* «lista»: el brillo queda en su punto medio. */
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-lista .rimglow {
+  opacity: 0.53 !important;
+  animation: none !important;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-lista .eyes {
+  animation: none !important;
+}
+
+/* La burbuja respira y gira, con la forma fija. */
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .bubble,
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .soap {
+  border-radius: 62% 38% 56% 44% / 44% 60% 40% 56% !important;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .bubble {
+  animation: ld-breathe2 7.3s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite, ld-drift2 16s linear
+    infinite !important;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .soap {
+  animation: ld-breathe2 7.3s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite, ld-drift2 40s linear
+    infinite !important;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda) .bubble::before {
+  animation: none !important;
+}
+
+/* «escuchando»: las ondas crecen y se desvanecen con el borde fijo. */
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-escuchando .pulse {
+  border-width: calc(var(--s) * 0.007) !important;
+  animation: ld-opt-onda 2.8s cubic-bezier(0.22, 0.61, 0.36, 1) 0.12s infinite !important;
+}
+:is(#bw-opt#bw-opt#bw-opt#bw-opt, .linda).st-escuchando .pulse.p2 {
+  animation-delay: 0.58s !important;
+}
