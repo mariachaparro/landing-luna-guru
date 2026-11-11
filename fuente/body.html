@@ -25,6 +25,7 @@
     <div class="charla"><p class="yo">¿Quién no vino hace dos meses?</p><p class="ella"><b>Luna</b>Ocho clientas. ¿Les preparo un mensaje para que vuelvan?</p></div>
     <div class="charla"><p class="yo">¿Cómo va la caja esta semana?</p><p class="ella"><b>Luna</b>Entraron $480.000 y registré tres gastos. Vas mejor que la semana pasada.</p></div>
   </div>
+  <div class="puntos" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
   <p class="beneficio">Tené el control de tu negocio, organizá tu día y descubrí nuevas oportunidades con Luna.</p>
 </div></section>
 
@@ -157,5 +158,20 @@ document.querySelectorAll('.escena iframe').forEach(function (f) {
     if (++intentos < 40) setTimeout(mira, 300);
   })();
 });
+
+// Carrusel de conversaciones en el celular: los puntos marcan cuál se ve.
+(function puntosCharlas() {
+  var pista = document.querySelector('.charlas');
+  var puntos = document.querySelectorAll('.puntos i');
+  var cartas = pista.querySelectorAll('.charla');
+  pista.addEventListener('scroll', function () {
+    var i = 0, mejor = Infinity;
+    cartas.forEach(function (c, k) {
+      var d = Math.abs(c.offsetLeft - pista.offsetLeft - pista.scrollLeft);
+      if (d < mejor) { mejor = d; i = k; }
+    });
+    puntos.forEach(function (p, k) { p.classList.toggle('on', k === i); });
+  }, { passive: true });
+})();
 </script>
 </body>

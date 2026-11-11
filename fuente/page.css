@@ -196,5 +196,16 @@ header.top img { height: 36px; width: auto; display: block; }
 .charla .ella { align-self: flex-start; background: #fff; color: var(--ink); border-radius: 18px 18px 18px 4px; padding: 10px 14px; border: 1.5px solid var(--borde); }
 .charla .ella b { display: block; color: var(--purple); font-size: 13px; margin-bottom: 2px; }
 .pregunta .beneficio { color: var(--ink); font-weight: 700; font-family: "Bricolage Grotesque", sans-serif; font-size: clamp(22px, 2.8vw, 30px); line-height: 1.2; max-width: 30ch; margin: 44px auto 0; }
-@media (max-width: 860px) { .charlas { grid-template-columns: 1fr; max-width: 460px; } }
+.puntos { display: none; }
+/* En el celular las conversaciones son un carrusel que se desliza con el dedo:
+   se ve un pedacito de la siguiente y no avanza solo. */
+@media (max-width: 860px) {
+  .charlas { display: flex; gap: 12px; max-width: none; margin: 36px -20px 0; padding: 0 20px 4px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .charlas::-webkit-scrollbar { display: none; }
+  .charla { flex: 0 0 84%; max-width: 380px; scroll-snap-align: start; }
+  .puntos { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+  .puntos i { width: 8px; height: 8px; border-radius: 50%; background: var(--borde); transition: width 0.2s, background 0.2s; }
+  .puntos i.on { width: 22px; border-radius: 999px; background: var(--purple); }
+  .pregunta .beneficio { margin-top: 32px; }
+}
 @media (max-width: 640px) { .pills-rubro li { width: 100%; } }

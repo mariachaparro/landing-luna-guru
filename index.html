@@ -3808,7 +3808,18 @@ header.top img { height: 36px; width: auto; display: block; }
 .charla .ella { align-self: flex-start; background: #fff; color: var(--ink); border-radius: 18px 18px 18px 4px; padding: 10px 14px; border: 1.5px solid var(--borde); }
 .charla .ella b { display: block; color: var(--purple); font-size: 13px; margin-bottom: 2px; }
 .pregunta .beneficio { color: var(--ink); font-weight: 700; font-family: "Bricolage Grotesque", sans-serif; font-size: clamp(22px, 2.8vw, 30px); line-height: 1.2; max-width: 30ch; margin: 44px auto 0; }
-@media (max-width: 860px) { .charlas { grid-template-columns: 1fr; max-width: 460px; } }
+.puntos { display: none; }
+/* En el celular las conversaciones son un carrusel que se desliza con el dedo:
+   se ve un pedacito de la siguiente y no avanza solo. */
+@media (max-width: 860px) {
+  .charlas { display: flex; gap: 12px; max-width: none; margin: 36px -20px 0; padding: 0 20px 4px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .charlas::-webkit-scrollbar { display: none; }
+  .charla { flex: 0 0 84%; max-width: 380px; scroll-snap-align: start; }
+  .puntos { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+  .puntos i { width: 8px; height: 8px; border-radius: 50%; background: var(--borde); transition: width 0.2s, background 0.2s; }
+  .puntos i.on { width: 22px; border-radius: 999px; background: var(--purple); }
+  .pregunta .beneficio { margin-top: 32px; }
+}
 @media (max-width: 640px) { .pills-rubro li { width: 100%; } }
 
 </style>
@@ -3840,6 +3851,7 @@ header.top img { height: 36px; width: auto; display: block; }
     <div class="charla"><p class="yo">¿Quién no vino hace dos meses?</p><p class="ella"><b>Luna</b>Ocho clientas. ¿Les preparo un mensaje para que vuelvan?</p></div>
     <div class="charla"><p class="yo">¿Cómo va la caja esta semana?</p><p class="ella"><b>Luna</b>Entraron $480.000 y registré tres gastos. Vas mejor que la semana pasada.</p></div>
   </div>
+  <div class="puntos" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
   <p class="beneficio">Tené el control de tu negocio, organizá tu día y descubrí nuevas oportunidades con Luna.</p>
 </div></section>
 
@@ -3972,6 +3984,21 @@ document.querySelectorAll('.escena iframe').forEach(function (f) {
     if (++intentos < 40) setTimeout(mira, 300);
   })();
 });
+
+// Carrusel de conversaciones en el celular: los puntos marcan cuál se ve.
+(function puntosCharlas() {
+  var pista = document.querySelector('.charlas');
+  var puntos = document.querySelectorAll('.puntos i');
+  var cartas = pista.querySelectorAll('.charla');
+  pista.addEventListener('scroll', function () {
+    var i = 0, mejor = Infinity;
+    cartas.forEach(function (c, k) {
+      var d = Math.abs(c.offsetLeft - pista.offsetLeft - pista.scrollLeft);
+      if (d < mejor) { mejor = d; i = k; }
+    });
+    puntos.forEach(function (p, k) { p.classList.toggle('on', k === i); });
+  }, { passive: true });
+})();
 </script>
 </body>
 
