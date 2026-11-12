@@ -3682,7 +3682,9 @@ header.top img { height: 36px; width: auto; display: block; }
 .pill { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; color: var(--ink2); background: #fff; border: 1px solid var(--borde); border-radius: 999px; padding: 6px 16px 6px 12px; margin-bottom: 22px; }
 .pill img { height: 20px; width: auto; display: block; }
 .hero h1 { font-size: clamp(38px, 6.4vw, 72px); line-height: 1.05; font-weight: 700; max-width: 15ch; margin: 0 auto; }
-.hero .lead { max-width: 580px; margin: 22px auto 30px; font-size: clamp(17px, 2vw, 19px); color: var(--ink2); }
+.hero .lead { max-width: 580px; margin: 22px auto 30px; font-size: clamp(17px, 2vw, 19px); color: var(--ink2); text-wrap: balance; }
+/* «Vos seguís trabajando.» no se corta: si no entra, baja entera a la línea siguiente. */
+.junto { white-space: nowrap; }
 
 .pregunta { text-align: center; padding-block: 104px 128px; }
 .pregunta h2 { font-size: clamp(30px, 4.6vw, 52px); line-height: 1.08; font-weight: 700; max-width: 18ch; margin: 0 auto; }
@@ -3720,8 +3722,8 @@ header.top img { height: 36px; width: auto; display: block; }
 
 /* Rubros: las cuatro industrias en pastillas, y debajo el carrusel de fotos
    intercalando una de cada. */
-.pills-rubro { list-style: none; padding: 0; margin: -20px auto 44px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-.pills-rubro li { background: #fff; border: 1.5px solid var(--borde); color: var(--ink); border-radius: 22px; padding: 12px 22px 12px 18px; display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; max-width: 340px; text-align: left; }
+.pills-rubro { list-style: none; padding: 0; margin: -20px auto 44px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; max-width: 720px; }
+.pills-rubro li { background: #fff; border: 1.5px solid var(--borde); color: var(--ink); border-radius: 22px; padding: 12px 22px 12px 18px; display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: center; text-align: left; }
 .pills-rubro li::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--purple); grid-row: 1; }
 .pills-rubro b { font-size: 16px; font-weight: 700; }
 .pills-rubro span { grid-column: 2; font-size: 13.5px; color: var(--ink2); line-height: 1.35; }
@@ -3820,7 +3822,7 @@ header.top img { height: 36px; width: auto; display: block; }
   .puntos i.on { width: 22px; border-radius: 999px; background: var(--purple); }
   .pregunta .beneficio { margin-top: 32px; }
 }
-@media (max-width: 640px) { .pills-rubro li { width: 100%; } }
+@media (max-width: 640px) { .pills-rubro { grid-template-columns: 1fr; max-width: 420px; } }
 
 </style>
 </head>
@@ -3837,7 +3839,7 @@ header.top img { height: 36px; width: auto; display: block; }
   <div class="linda st-lista a-ninguno au-jabon optimizada" style="--s:150px" role="img" aria-label="Luna, la IA de gurú"><div class="halo"></div><div class="pulse"></div><div class="pulse p2"></div><div class="shadow"></div><div class="body"><div class="rimglow"><div class="rim glow"></div></div><div class="core"></div><div class="rim"></div><div class="rim hot"></div><div class="rimline"></div><div class="orbits"><span></span><span></span><span></span></div><div class="eyes"><div class="eye"></div><div class="eye"></div><div class="acc acc-gafas"><div class="lens"></div><div class="bridge"></div><div class="lens"></div></div></div><div class="bubble"></div><div class="wstrokes"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="w2"><i></i><i></i><i></i><i></i><i></i></div><div class="bstrokes"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="water"><i></i><i></i><i></i><i></i><i></i></div><div class="liquid"><b></b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="lgloss"></div><div class="soap"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="acc acc-sombrero"><div class="brim"></div><div class="crown"></div><div class="hband"></div></div><div class="acc acc-audifonos"><div class="arc"></div><div class="cup l"></div><div class="cup r"></div></div></div></div>
   <span class="pill"><img src="luna-logo.png" alt="Luna" width="61" height="20">la IA de gurú</span>
   <h1>Dejá de operar tu negocio, <em class="it">hablá con&nbsp;él.</em></h1>
-  <p class="lead">Luna atiende a tus clientes, les da turno, guarda el registro de cada uno y te cuenta cómo va tu negocio cuando se lo preguntás. <b>Vos seguís trabajando.</b></p>
+  <p class="lead">Luna atiende a tus clientes, les da turno, guarda el registro de cada uno y te cuenta cómo va tu negocio cuando se lo preguntás. <b class="junto">Vos seguís trabajando.</b></p>
   <a class="btn" href="#registro">Registrate ahora</a>
   <p class="micro">No necesitás saber de tecnología ni tener todo listo.</p>
 </div></section>
